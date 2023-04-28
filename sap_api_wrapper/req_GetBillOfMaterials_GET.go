@@ -5,64 +5,74 @@ import (
 	"time"
 )
 
-type SapApiGetMixCaseDataResult struct {
-	Value    []SapApiMixCaseData `json:"value"`
-	NextLink string              `json:"odata.nextLink"`
+type SapApiGetBillOfMaterialsDataResult struct {
+	Value    []SapApiBillOfMaterialEntry `json:"value"`
+	NextLink string                      `json:"odata.nextLink"`
 }
 
-type SapApiMixCaseData struct {
-	ItemCode string  `json:"ItemCode"`
-	Quantity float64 `json:"Quantity"`
+type SapApiBillOfMaterialEntry struct {
+	ItemCode                string  `json:"ItemCode"`
+	Quantity                float64 `json:"Quantity"`
+	Type                    string  `json:"U_CCF_Type"`
+	IngredientsScandinavian string  `json:"U_CCF_Ingrediens_DA_SE_NO"`
+	IngredientsFinnish      string  `json:"U_CCF_Ingrediens_FI"`
+	IngredientsEnglish      string  `json:"U_CCF_Ingrediens_EN"`
+	IngredientsGerman       string  `json:"U_CCF_Ingrediens_DE"`
+	IngredientsDutch        string  `json:"U_CCF_Ingrediens_NL"`
+	IngredientsFrench       string  `json:"U_CCF_Ingrediens_FR"`
+	IngredientsPortuguese   string  `json:"U_CCF_Ingrediens_PT"`
+	IngredientsItalian      string  `json:"U_CCF_Ingrediens_IT"`
+	IngredientsSpanish      string  `json:"U_CCF_Ingrediens_ES"`
 }
 
-type SapApiGetMixCaseDataReturn struct {
-	Body *SapApiGetMixCaseDataResult
+type SapApiGetBillOfMaterialsDataReturn struct {
+	Body *SapApiGetBillOfMaterialsDataResult
 }
 
-func SapApiGetMixCaseData(params SapApiQueryParams) (SapApiGetMixCaseDataReturn, error) {
+func SapApiGetBillOfMaterialsData(params SapApiQueryParams) (SapApiGetBillOfMaterialsDataReturn, error) {
 	for i := 0; i < 200; i++ {
 		client, err := GetSapApiAuthClient()
 		if err != nil {
 			fmt.Println("Error getting an authenticaed client")
-			return SapApiGetMixCaseDataReturn{}, err
+			return SapApiGetBillOfMaterialsDataReturn{}, err
 		}
 
 		resp, err := client.
 			//DevMode().
 			R().
-			SetResult(SapApiGetMixCaseDataResult{}).
+			SetResult(SapApiGetBillOfMaterialsDataResult{}).
 			SetQueryParams(params.AsReqParams()).
-			Get("SQLQueries('CQ10002')/List")
+			Get("SQLQueries('CQ10003')/List")
 		if err != nil {
 			fmt.Println(err)
-			return SapApiGetMixCaseDataReturn{}, err
+			return SapApiGetBillOfMaterialsDataReturn{}, err
 		}
 
 		if resp.IsError() {
 			if resp.StatusCode != 403 {
 				//fmt.Printf("Dumping SAP Error %v\n", resp.Dump())
-				return SapApiGetMixCaseDataReturn{}, fmt.Errorf("error getting mixCaseContent from to sap. unexpected errorcode. StatusCode :%v Status: %v", resp.StatusCode, resp.Status)
+				return SapApiGetBillOfMaterialsDataReturn{}, fmt.Errorf("error getting BillOfMaterialsContent from to sap. unexpected errorcode. StatusCode :%v Status: %v", resp.StatusCode, resp.Status)
 			} else {
 				time.Sleep(100 * time.Millisecond)
 			}
 
 		} else {
-			return SapApiGetMixCaseDataReturn{
-				Body: resp.Result().(*SapApiGetMixCaseDataResult),
+			return SapApiGetBillOfMaterialsDataReturn{
+				Body: resp.Result().(*SapApiGetBillOfMaterialsDataResult),
 			}, nil
 		}
 	}
-	return SapApiGetMixCaseDataReturn{}, fmt.Errorf("error getting invoices from SAP. Tried 200 times and couldn't get through")
+	return SapApiGetBillOfMaterialsDataReturn{}, fmt.Errorf("error getting invoices from SAP. Tried 200 times and couldn't get through")
 }
 
-func SapApiGetMixCaseData_AllPages(params SapApiQueryParams) (SapApiGetMixCaseDataReturn, error) {
-	res := SapApiGetMixCaseDataResult{}
+func SapApiGetBillOfMaterialsData_AllPages(params SapApiQueryParams) (SapApiGetBillOfMaterialsDataReturn, error) {
+	res := SapApiGetBillOfMaterialsDataResult{}
 	for page := 0; ; page++ {
 		params.Skip = page * 20
 
-		getItemsRes, err := SapApiGetMixCaseData(params)
+		getItemsRes, err := SapApiGetBillOfMaterialsData(params)
 		if err != nil {
-			return SapApiGetMixCaseDataReturn{}, err
+			return SapApiGetBillOfMaterialsDataReturn{}, err
 		}
 
 		res.Value = append(res.Value, getItemsRes.Body.Value...)
@@ -72,7 +82,7 @@ func SapApiGetMixCaseData_AllPages(params SapApiQueryParams) (SapApiGetMixCaseDa
 		}
 	}
 
-	return SapApiGetMixCaseDataReturn{
+	return SapApiGetBillOfMaterialsDataReturn{
 		Body: &res,
 	}, nil
 }
