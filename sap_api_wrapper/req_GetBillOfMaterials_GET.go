@@ -11,18 +11,9 @@ type SapApiGetBillOfMaterialsDataResult struct {
 }
 
 type SapApiBillOfMaterialEntry struct {
-	ItemCode                string  `json:"ItemCode"`
-	Quantity                float64 `json:"Quantity"`
-	Type                    string  `json:"U_CCF_Type"`
-	IngredientsScandinavian string  `json:"U_CCF_Ingrediens_DA_SE_NO"`
-	IngredientsFinnish      string  `json:"U_CCF_Ingrediens_FI"`
-	IngredientsEnglish      string  `json:"U_CCF_Ingrediens_EN"`
-	IngredientsGerman       string  `json:"U_CCF_Ingrediens_DE"`
-	IngredientsDutch        string  `json:"U_CCF_Ingrediens_NL"`
-	IngredientsFrench       string  `json:"U_CCF_Ingrediens_FR"`
-	IngredientsPortuguese   string  `json:"U_CCF_Ingrediens_PT"`
-	IngredientsItalian      string  `json:"U_CCF_Ingrediens_IT"`
-	IngredientsSpanish      string  `json:"U_CCF_Ingrediens_ES"`
+	ItemCode string  `json:"ItemCode"`
+	Quantity float64 `json:"Quantity"`
+	Type     string  `json:"U_CCF_Type"`
 }
 
 type SapApiGetBillOfMaterialsDataReturn struct {

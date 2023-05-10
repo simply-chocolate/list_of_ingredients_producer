@@ -20,9 +20,8 @@ func LoadEnvs() {
 	if os.Getenv("SAP_URL") == "" {
 		panic("Error loading environment variable SAP_URL")
 	}
-	/*
-		if os.Getenv("TEAMS_WEBHOOK_URL") == "" {
-			panic("Error loading environment variable TEAMS_WEBHOOK_URL")
-		}
-	*/
+	if os.Getenv("TEAMS_WEBHOOK_URL") == "" {
+		panic("Error loading environment variable TEAMS_WEBHOOK_URL")
+	}
+
 }

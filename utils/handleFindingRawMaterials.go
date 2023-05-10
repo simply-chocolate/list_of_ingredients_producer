@@ -15,20 +15,6 @@ import (
 //
 // If the typing is not raw material, we will call the function again with the new itemcode
 // We will need to return a list of raw materials for the itemcode
-type RawMaterial struct {
-	ItemCode                string `json:"ItemCode"`
-	FatherQuantity          float64
-	Quantity                float64 `json:"Quantity"`
-	IngredientsScandinavian string  `json:"U_CCF_Ingrediens_DA_SE_NO"`
-	IngredientsFinnish      string  `json:"U_CCF_Ingrediens_FI"`
-	IngredientsEnglish      string  `json:"U_CCF_Ingrediens_EN"`
-	IngredientsGerman       string  `json:"U_CCF_Ingrediens_DE"`
-	IngredientsDutch        string  `json:"U_CCF_Ingrediens_NL"`
-	IngredientsFrench       string  `json:"U_CCF_Ingrediens_FR"`
-	IngredientsPortuguese   string  `json:"U_CCF_Ingrediens_PT"`
-	IngredientsItalian      string  `json:"U_CCF_Ingrediens_IT"`
-	IngredientsSpanish      string  `json:"U_CCF_Ingrediens_ES"`
-}
 
 type ItemCodeAndQuantity struct {
 	ItemCode string
@@ -36,19 +22,6 @@ type ItemCodeAndQuantity struct {
 }
 
 type BillOfMaterials []sap_api_wrapper.SapApiBillOfMaterialEntry
-
-type SalesItem struct {
-	ItemCode                string
-	IngredientsScandinavian string `json:"U_CCF_Ingrediens_DA_SE_NO"`
-	IngredientsFinnish      string `json:"U_CCF_Ingrediens_FI"`
-	IngredientsEnglish      string `json:"U_CCF_Ingrediens_EN"`
-	IngredientsGerman       string `json:"U_CCF_Ingrediens_DE"`
-	IngredientsDutch        string `json:"U_CCF_Ingrediens_NL"`
-	IngredientsFrench       string `json:"U_CCF_Ingrediens_FR"`
-	IngredientsPortuguese   string `json:"U_CCF_Ingrediens_PT"`
-	IngredientsItalian      string `json:"U_CCF_Ingrediens_IT"`
-	IngredientsSpanish      string `json:"U_CCF_Ingrediens_ES"`
-}
 
 func GetAllBillOfMaterials() {
 	items, err := GetItemDataFromSap("0022030034-1")
@@ -59,7 +32,7 @@ func GetAllBillOfMaterials() {
 
 	for _, item := range items.Value {
 		// Create a sales item so we can store the raw materials within it
-		var salesItem SalesItem
+		var salesItem sap_api_wrapper.SapApiItemsData
 		salesItem.ItemCode = item.ItemCode
 
 		var billOfMaterials BillOfMaterials
@@ -89,7 +62,9 @@ func GetAllBillOfMaterials() {
 		// Sort the map by quantity
 		sortedSliceOfMaterials := SortMaterialsByQuantity(rawMaterialsMap)
 
-		HandleConcatListOfIngredients(sortedSliceOfMaterials, salesItem, totalQuantity)
-
+		salesItem, err := HandleConcatAllListOfIngredients(sortedSliceOfMaterials, salesItem, totalQuantity)
+		if err != nil {
+			panic(err)
+		}
 	}
 }

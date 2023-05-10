@@ -9,12 +9,21 @@ import (
 
 // takes a map of materials as parameter and returns a list of materials sorted with the most used materials first (highest Quantity)
 // Also converts the Unit Of Measure to Grams instead of Kilograms
-func SortMaterialsByQuantity(materials map[string]RawMaterial) []RawMaterial {
+type RawMaterial struct {
+	ItemCode       string `json:"ItemCode"`
+	FatherQuantity float64
+	Quantity       float64 `json:"Quantity"`
+}
+
+func SortMaterialsByQuantity(materials map[string]float64) []RawMaterial {
 	// First we need to convert the map to a slice
 	var materialsSlice []RawMaterial
-	for _, material := range materials {
-		material.Quantity *= 1000
-		materialsSlice = append(materialsSlice, material)
+	for key, material := range materials {
+		var newRawMaterial RawMaterial
+		newRawMaterial.ItemCode = key
+		newRawMaterial.Quantity = material * 1000
+
+		materialsSlice = append(materialsSlice, newRawMaterial)
 	}
 
 	sort.Slice(materialsSlice, func(i, j int) bool {
@@ -43,31 +52,19 @@ func FindCorrectPrecision(ingredientPercent float64) string {
 
 // takes a bill of materials
 // return a map of raw materials and a total quantity
-func MapRawMaterials(billOfMaterials BillOfMaterials) (map[string]RawMaterial, float64) {
-	rawMaterialsMap := make(map[string]RawMaterial)
+func MapRawMaterials(billOfMaterials BillOfMaterials) (map[string]float64, float64) {
+	rawMaterialsMap := make(map[string]float64)
 	totalQuantity := 0.0
 
 	for _, rawMaterial := range billOfMaterials {
 		// We need to somehow get the quantity of the father item, that this raw material is a part of
-		value, exists := rawMaterialsMap[rawMaterial.ItemCode]
+		_, exists := rawMaterialsMap[rawMaterial.ItemCode]
 		if !exists {
-			newRawMaterial := RawMaterial{
-				ItemCode:                rawMaterial.ItemCode,
-				Quantity:                rawMaterial.Quantity,
-				IngredientsScandinavian: rawMaterial.IngredientsScandinavian,
-				IngredientsFinnish:      rawMaterial.IngredientsFinnish,
-				IngredientsEnglish:      rawMaterial.IngredientsEnglish,
-				IngredientsGerman:       rawMaterial.IngredientsGerman,
-				IngredientsDutch:        rawMaterial.IngredientsDutch,
-				IngredientsFrench:       rawMaterial.IngredientsFrench,
-				IngredientsPortuguese:   rawMaterial.IngredientsPortuguese,
-				IngredientsItalian:      rawMaterial.IngredientsItalian,
-				IngredientsSpanish:      rawMaterial.IngredientsSpanish,
-			}
-			rawMaterialsMap[rawMaterial.ItemCode] = newRawMaterial
+			rawMaterialsMap[rawMaterial.ItemCode] = rawMaterial.Quantity
+
 		} else {
-			value.Quantity += rawMaterial.Quantity
-			rawMaterialsMap[rawMaterial.ItemCode] = value
+			rawMaterialsMap[rawMaterial.ItemCode] += rawMaterial.Quantity
+
 		}
 		totalQuantity += rawMaterial.Quantity
 	}
@@ -86,6 +83,6 @@ func IncorporatePercentAmountInIngredient(ingredient string, percentAmount strin
 	} else {
 		ingredient = ingredient[:parenthesesIndex] + "(" + percentAmount + "%)" + ingredient[parenthesesIndex:]
 	}
-	fmt.Println("ingredient: ", ingredient)
+
 	return ingredient
 }

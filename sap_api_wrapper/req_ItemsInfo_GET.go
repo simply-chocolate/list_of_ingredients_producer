@@ -28,7 +28,18 @@ type ItemUnitOfMeasurement struct {
 type SapApiItemsData struct {
 	TypeOfProduct string `json:"U_CCF_Type"` // If this is Equal to "Kampagne" then it should not have a BaseUnit ItemCode
 	ItemCode      string `json:"ItemCode"`
-	ItemNameDA    string `json:"ItemName"`
+	ItemName      string `json:"ItemName"`
+
+	// Lists of ingredients
+	IngredientsScandinavian string `json:"U_CCF_Ingrediens_DA_SE_NO"`
+	IngredientsFinnish      string `json:"U_CCF_Ingrediens_FI"`
+	IngredientsEnglish      string `json:"U_CCF_Ingrediens_EN"`
+	IngredientsGerman       string `json:"U_CCF_Ingrediens_DE"`
+	IngredientsDutch        string `json:"U_CCF_Ingrediens_NL"`
+	IngredientsFrench       string `json:"U_CCF_Ingrediens_FR"`
+	IngredientsPortuguese   string `json:"U_CCF_Ingrediens_PT"`
+	IngredientsItalian      string `json:"U_CCF_Ingrediens_IT"`
+	IngredientsSpanish      string `json:"U_CCF_Ingrediens_ES"`
 
 	// Allergen containment information
 	ContainmentLevelGluten                   string `json:"U_BOYX_gluten"`
