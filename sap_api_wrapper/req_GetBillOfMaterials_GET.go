@@ -31,7 +31,7 @@ func SapApiGetBillOfMaterialsData(params SapApiQueryParams) (SapApiGetBillOfMate
 		resp, err := client.
 			//DevMode().
 			R().
-			SetResult(SapApiGetBillOfMaterialsDataResult{}).
+			SetSuccessResult(SapApiGetBillOfMaterialsDataResult{}).
 			SetQueryParams(params.AsReqParams()).
 			Get("SQLQueries('CQ10003')/List")
 		if err != nil {
@@ -39,7 +39,7 @@ func SapApiGetBillOfMaterialsData(params SapApiQueryParams) (SapApiGetBillOfMate
 			return SapApiGetBillOfMaterialsDataReturn{}, err
 		}
 
-		if resp.IsError() {
+		if resp.IsErrorState() {
 			if resp.StatusCode != 403 {
 				//fmt.Printf("Dumping SAP Error %v\n", resp.Dump())
 				return SapApiGetBillOfMaterialsDataReturn{}, fmt.Errorf("error getting BillOfMaterialsContent from to sap. unexpected errorcode. StatusCode :%v Status: %v", resp.StatusCode, resp.Status)
@@ -49,7 +49,7 @@ func SapApiGetBillOfMaterialsData(params SapApiQueryParams) (SapApiGetBillOfMate
 
 		} else {
 			return SapApiGetBillOfMaterialsDataReturn{
-				Body: resp.Result().(*SapApiGetBillOfMaterialsDataResult),
+				Body: resp.SuccessResult().(*SapApiGetBillOfMaterialsDataResult),
 			}, nil
 		}
 	}

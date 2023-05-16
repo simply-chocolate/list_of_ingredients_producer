@@ -9,26 +9,11 @@ type SapApiGetItemsDataResults struct {
 	NextLink string            `json:"odata.nextLink"`
 }
 
-/*
-type ItemUnitOfMeasurement struct {
-	UoMType    string `json:"UoMType"`
-	UoMEntry   int    `json:"UoMEntry"`
-	Length     int    `json:"Length1"`
-	LengthUnit int    `json:"Length1Unit"` // For dimensions [1 = mm?, 2 = cm, 3 = m?]
-	Width      int    `json:"Width1"`
-	WidthUnit  int    `json:"Width1Unit"` // For dimensions [1 = mm?, 2 = cm, 3 = m?]
-	Height     int    `json:"Height1"`
-	HeightUnit int    `json:"Height1Unit"` // For dimensions [1 = mm?, 2 = cm, 3 = m?]
-	Weight     int    `json:"Weight1"`
-	WeightUnit int    `json:"Weight1Unit"` // For weight [1 = ?, 2 = g?, 3 = kg]
-	// Maybe the units is 1 list, so 2 = cm and 3 = kg no matter what type of input?
-}
-*/
-
 type SapApiItemsData struct {
-	TypeOfProduct string `json:"U_CCF_Type"` // If this is Equal to "Kampagne" then it should not have a BaseUnit ItemCode
-	ItemCode      string `json:"ItemCode"`
-	ItemName      string `json:"ItemName"`
+	TypeOfProduct      string `json:"U_CCF_Type"` // If this is Equal to "Kampagne" then it should not have a BaseUnit ItemCode
+	ItemCode           string `json:"ItemCode"`
+	ItemName           string `json:"ItemName"`
+	ClaimedIngredients string `json:"U_BOYX_Ingredienser"`
 
 	// Lists of ingredients
 	IngredientsScandinavian string `json:"U_CCF_Ingrediens_DA_SE_NO"`

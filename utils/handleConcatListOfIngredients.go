@@ -2,7 +2,6 @@ package utils
 
 import (
 	"errors"
-	"fmt"
 	"list_of_ingredients_producer/sap_api_wrapper"
 	"list_of_ingredients_producer/teams_notifier"
 )
@@ -20,63 +19,54 @@ func HandleConcatAllListOfIngredients(listOfIngredients []RawMaterial, salesItem
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsScandinavian = listOfIngredientsScandinavian
-	fmt.Println("DA/SE/NO:", listOfIngredientsScandinavian)
 
 	listOfIngredientsEnglish, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "EN", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsEnglish = listOfIngredientsEnglish
-	fmt.Println("\nEN:", listOfIngredientsEnglish)
 
 	IngredientsFinnish, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "FI", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsFinnish = IngredientsFinnish
-	fmt.Println("\nFI:", IngredientsFinnish)
 
 	IngredientsGerman, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "DE", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsGerman = IngredientsGerman
-	fmt.Println("\nDE:", IngredientsGerman)
 
 	IngredientsDutch, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "NL", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsDutch = IngredientsDutch
-	fmt.Println("\nNL:", IngredientsDutch)
 
 	IngredientsFrench, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "FR", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsFrench = IngredientsFrench
-	fmt.Println("\nFR:", IngredientsFrench)
 
 	IngredientsPortuguese, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "PT", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsPortuguese = IngredientsPortuguese
-	fmt.Println("\nPT:", IngredientsPortuguese)
 
 	IngredientsItalian, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "IT", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsItalian = IngredientsItalian
-	fmt.Println("\nIT:", IngredientsItalian)
 
 	IngredientsSpanish, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "ES", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 	salesItem.IngredientsSpanish = IngredientsSpanish
-	fmt.Println("\nES:", IngredientsSpanish)
 
 	return salesItem, nil
 }
@@ -99,16 +89,12 @@ func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuan
 
 		containmentMap = FindAllAllergenContaminations(containmentMap, ingredientFromMap)
 
-		// TODO: For some ingredients, we need to add the % quantity of the ingredient
-		// to figure out which ingredients we need to do this with, we need to add a field in SAP, where we can write a string of raw material item codes
-		needsPercent := false
-
 		if ingredientFromMap[languageCode] == "" {
 			teams_notifier.SendMissingIngredientsToTeams(salesItem.ItemCode, ingredient.ItemCode, languageCode)
 
-			hasError = true
-
 		} else {
+
+			needsPercent := CheckIfIngredientIsClaimed(salesItem.ClaimedIngredients, ingredient.ItemCode)
 
 			if needsPercent {
 				// Ignore error as its just been parsed from float to string, so it should not be able to fail

@@ -23,9 +23,9 @@ type ItemCodeAndQuantity struct {
 
 type BillOfMaterials []sap_api_wrapper.SapApiBillOfMaterialEntry
 
-func GetAllBillOfMaterials() {
-	items, err := GetItemDataFromSap("0022030034-1")
-	//items, err := GetItemDataFromSap("0021050008")
+func HandleAllItemsListOfIngredients() {
+	//items, err := GetItemDataFromSap("0022030034-1")
+	items, err := GetItemDataFromSap("0021050100")
 	if err != nil {
 		panic(err)
 	}
@@ -34,6 +34,7 @@ func GetAllBillOfMaterials() {
 		// Create a sales item so we can store the raw materials within it
 		var salesItem sap_api_wrapper.SapApiItemsData
 		salesItem.ItemCode = item.ItemCode
+		salesItem.ClaimedIngredients = item.ClaimedIngredients
 
 		var billOfMaterials BillOfMaterials
 		var starterItem ItemCodeAndQuantity
@@ -66,5 +67,12 @@ func GetAllBillOfMaterials() {
 		if err != nil {
 			panic(err)
 		}
+
+		// Update the item in SAP
+		err = sap_api_wrapper.SetItemData(salesItem)
+		if err != nil {
+			panic(err)
+		}
+
 	}
 }

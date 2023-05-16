@@ -33,7 +33,7 @@ func SapApiGetMixCaseContent(params SapApiQueryParams) (SapApiGetMixCaseContentR
 	resp, err := client.
 		//DevMode().
 		R().
-		SetResult(SapApiGetMixCaseContentResult{}).
+		SetSuccessResult(SapApiGetMixCaseContentResult{}).
 		SetQueryParams(params.AsReqParams()).
 		Get("Items")
 	if err != nil {
@@ -42,7 +42,7 @@ func SapApiGetMixCaseContent(params SapApiQueryParams) (SapApiGetMixCaseContentR
 	}
 
 	return SapApiGetMixCaseContentReturn{
-		Body: resp.Result().(*SapApiGetMixCaseContentResult),
+		Body: resp.SuccessResult().(*SapApiGetMixCaseContentResult),
 	}, nil
 
 }

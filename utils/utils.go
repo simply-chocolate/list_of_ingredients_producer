@@ -78,6 +78,9 @@ func MapRawMaterials(billOfMaterials BillOfMaterials) (map[string]float64, float
 // Checks if the ingredient contains any paranthesis, if it does, it adds the percent amount before the opening paranthesis, if not, it adds the percent amount after the ingredient
 func IncorporatePercentAmountInIngredient(ingredient string, percentAmount string) string {
 	parenthesesIndex := strings.Index(ingredient, "(")
+
+	percentAmount = strings.ReplaceAll(percentAmount, ".", ",")
+
 	if parenthesesIndex == -1 {
 		ingredient = ingredient + " (" + percentAmount + "%)"
 	} else {
@@ -85,4 +88,19 @@ func IncorporatePercentAmountInIngredient(ingredient string, percentAmount strin
 	}
 
 	return ingredient
+}
+
+func CheckIfIngredientIsClaimed(claimedIngredientsString string, ingredient string) bool {
+	claimedIngredients := strings.Split(claimedIngredientsString, ", ")
+	for _, claimedIngredient := range claimedIngredients {
+
+		//TODO: Should we just do the trim prefix for one 0 ten times instead to make sure theres no zeroes?
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "000000")
+		ingredient = strings.TrimPrefix(ingredient, "000000")
+		if claimedIngredient == ingredient {
+			return true
+		}
+	}
+
+	return false
 }
