@@ -76,6 +76,7 @@ func createStringOfTraceContamination(containMentMap map[string]string, language
 
 	// First we need to make a slice of all the "May contain traces of" allergens that are not nuts (except peanuts)
 	for allergen, containment := range containMentMap {
+
 		if _, exists := nutMap[allergen]; exists {
 			hasNuts = true
 			continue
@@ -116,7 +117,7 @@ func getAllergenMap() map[string]map[string]string {
 		"Crustacea": {"DA_SE_NO": "krebsdyr/skaldjur/krepsdyr", "FI": "äyriäiset", "EN": "crustaceans", "DE": "Krebstiere", "NL": "schaaldieren", "FR": "crustacés", "PT": "crustáceos", "IT": "crostacei", "ES": "crustáceos"},
 		"Egg":       {"DA_SE_NO": "æg", "FI": "muna", "EN": "egg", "DE": "Ei", "NL": "ei", "FR": "oeuf", "PT": "ovo", "IT": "uovo", "ES": "huevo"},
 		"Fish":      {"DA_SE_NO": "fisk", "FI": "kala", "EN": "fish", "DE": "Fisch", "NL": "vis", "FR": "poisson", "PT": "peixe", "IT": "pesce", "ES": "pescado"},
-		"Peanut":    {"DA_SE_NO": "jord-/nødder/nötter/nøtter", "FI": "maapähkinä", "EN": "peanuts", "DE": "Erdnüsse", "NL": "pinda", "FR": "arachide", "PT": "amendoim", "IT": "arachidi", "ES": "cacahuete"},
+		"Peanut":    {"DA_SE_NO": "peanuts/jordnötter/peanøtt", "FI": "maapähkinä", "EN": "peanuts", "DE": "Erdnüsse", "NL": "pinda", "FR": "arachide", "PT": "amendoim", "IT": "arachidi", "ES": "cacahuete"},
 		"Soy":       {"DA_SE_NO": "soja/soya", "FI": "soija", "EN": "soy", "DE": "soja", "NL": "soja", "FR": "soja", "PT": "soja", "IT": "soia", "ES": "soja"},
 		"Milk":      {"DA_SE_NO": "mælk/mjölk/melk", "FI": "maito", "EN": "milk", "DE": "Milch", "NL": "melk", "FR": "lait", "PT": "leite", "IT": "latte", "ES": "leche"},
 		// TODO: These nuts are just gonna be called "nuts" in the allergen list.

@@ -14,6 +14,19 @@ func HandleConcatAllListOfIngredients(listOfIngredients []RawMaterial, salesItem
 		return sap_api_wrapper.SapApiItemsData{}, err
 	}
 
+	nutritionalValues, err := CalculateNutritionalValues(RawMaterials, listOfIngredients, salesItem, totalQuantityForItem)
+	if err != nil {
+		return sap_api_wrapper.SapApiItemsData{}, err
+	}
+	salesItem.EnergyInkJ = nutritionalValues["EnergyKJ"]
+	salesItem.EnergyInKcal = nutritionalValues["EnergyKcal"]
+	salesItem.NutritionalFatValue = nutritionalValues["Fat"]
+	salesItem.NutritionalFattyAcidsValue = nutritionalValues["FattyAcids"]
+	salesItem.NutritionalCarboHydratesValue = nutritionalValues["CarboHydrates"]
+	salesItem.NutritionalSugarValue = nutritionalValues["Sugar"]
+	salesItem.NutritionalProteinValue = nutritionalValues["Protein"]
+	salesItem.NutritionalSaltValue = nutritionalValues["Salt"]
+
 	listOfIngredientsScandinavian, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "DA_SE_NO", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
@@ -86,18 +99,14 @@ func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuan
 			teams_notifier.SendRawMaterialNotFoundErrorToTeams(salesItem.ItemCode, ingredient.ItemCode)
 			hasError = true
 		}
-
 		containmentMap = FindAllAllergenContaminations(containmentMap, ingredientFromMap)
 
 		if ingredientFromMap[languageCode] == "" {
 			teams_notifier.SendMissingIngredientsToTeams(salesItem.ItemCode, ingredient.ItemCode, languageCode)
 
 		} else {
-
 			needsPercent := CheckIfIngredientIsClaimed(salesItem.ClaimedIngredients, ingredient.ItemCode)
-
 			if needsPercent {
-				// Ignore error as its just been parsed from float to string, so it should not be able to fail
 				percentOfIngredientOnProduct := FindCorrectPrecision(ingredient.Quantity / totalQuantity * 100)
 
 				if percentOfIngredientOnProduct == "0" {

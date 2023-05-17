@@ -17,7 +17,6 @@ func getCocoaDryMatterString(materialsOnProduct []RawMaterial, allRawMaterials m
 			panic("error: could not find raw material in allRawMaterials")
 		}
 
-		//fmt.Println("ItemName: ", materialInfo["ItemName"])
 		if strings.Contains(materialInfo["ItemName"], "chokolade") || strings.Contains(materialInfo["ItemName"], "Chokolade") {
 			if strings.Contains(materialInfo["ItemName"], "Mørk") || strings.Contains(materialInfo["ItemName"], "mørk") {
 				hasDarkChocolate = true

@@ -78,7 +78,6 @@ func MapRawMaterials(billOfMaterials BillOfMaterials) (map[string]float64, float
 // Checks if the ingredient contains any paranthesis, if it does, it adds the percent amount before the opening paranthesis, if not, it adds the percent amount after the ingredient
 func IncorporatePercentAmountInIngredient(ingredient string, percentAmount string) string {
 	parenthesesIndex := strings.Index(ingredient, "(")
-
 	percentAmount = strings.ReplaceAll(percentAmount, ".", ",")
 
 	if parenthesesIndex == -1 {
