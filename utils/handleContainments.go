@@ -160,8 +160,8 @@ func getNutMap() map[string]string {
 // Returns a map of the start of the "May contain traces of" in all languages with language code as key
 func getStartOfMayContainMap() map[string]string {
 	mayContainTracesOfMap := map[string]string{
-		"DA_SE_NO": "Kan indeholde spor af ",
-		"FI":       "Saattaa sisältää jäämiä",
+		"DA_SE_NO": "Kan indeholde/innehålla spor/spår af/av ",
+		"FI":       "Saattaa sisältää jäämiä ",
 		"EN":       "May contain traces of ",
 		"DE":       "Kann Spuren von ",
 		"NL":       "Kan sporen bevatten van ",
@@ -177,15 +177,15 @@ func getStartOfMayContainMap() map[string]string {
 // Only the german one has something at the end
 func getEndOfMayContainMap() map[string]string {
 	mayContainTracesOfMap := map[string]string{
-		"DA_SE_NO": "",
-		"FI":       "",
-		"EN":       "",
-		"DE":       " enhalten",
-		"NL":       "",
-		"FR":       "",
-		"PT":       "",
-		"IT":       "",
-		"ES":       "",
+		"DA_SE_NO": ".",
+		"FI":       ".",
+		"EN":       ".",
+		"DE":       " enhalten.",
+		"NL":       ".",
+		"FR":       ".",
+		"PT":       ".",
+		"IT":       ".",
+		"ES":       ".",
 	}
 	return mayContainTracesOfMap
 }

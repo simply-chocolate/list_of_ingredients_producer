@@ -17,6 +17,8 @@ func getCocoaDryMatterString(materialsOnProduct []RawMaterial, allRawMaterials m
 			panic("error: could not find raw material in allRawMaterials")
 		}
 
+		// TODO: Handle this from SAP. We need a field on the raw material that tells us if it is 60%, 70%, 35% or 100% cocoa dry matter.
+		// Also weather its "dark", "milk" or "cocoa nibs"
 		if strings.Contains(materialInfo["ItemName"], "chokolade") || strings.Contains(materialInfo["ItemName"], "Chokolade") {
 			if strings.Contains(materialInfo["ItemName"], "Mørk") || strings.Contains(materialInfo["ItemName"], "mørk") {
 				hasDarkChocolate = true

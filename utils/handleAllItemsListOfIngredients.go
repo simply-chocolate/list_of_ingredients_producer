@@ -13,10 +13,20 @@ type ItemCodeAndQuantity struct {
 
 type BillOfMaterials []sap_api_wrapper.SapApiBillOfMaterialEntry
 
+// TODO: Vi skal kunne gå et niveau ned i styklisterne for at finde alle de sammensatte råvarers underråvarer.
+// Til det skal vi have oprettet alle de råvarer, som er en del af en sammensat ingrediens. fx "sukker, soya lecitin".
+// Nogle af disse findes allerede i SAP, hvortil vi blot skal oprette en stykliste på de sammensatte råvarer.
+// For at kunne overholde lov om anprisninger skal vi finde ud af hvordan vi laver en lille "lækker" tekst oppe i toppen,
+// hvor vi kan angive hvor mange % af hver sammensat råvare der er i produktet.
+// For at kunne komme i mål med dette, kræver det at vi kan skrive navnet på de ingrediens, på alle de sprog vi bruger.
+// U_CCF_IngredientName_DA_SE_NO, U_CCF_IngredientName_FI, U_CCF_IngredientName_EN, U_CCF_IngredientName_DE, U_CCF_IngredientName_NL, U_CCF_IngredientName_FR, U_CCF_IngredientName_PT, U_CCF_IngredientName_IT, U_CCF_IngredientName_ES
+// For mørk chokolade skal man så bare skrive "Mørk/Mörk chokolade/choklad/sjokolade" i U_CCF_IngredientName_DA_SE_NO.
+// Når du så bruger ingrediensen i et produkt, vil der i toppen stå "Mørk/Mörk chokolade/choklad/sjokolade (xx%) med Kastajnjer (xx%) og Sukker (xx%)".
+
 // Retrieves all the needed items from SAP and updates the list of ingredients for each item
 func HandleAllItemsListOfIngredients() error {
 	//items, err := GetItemDataFromSap("0022030034-1")
-	items, err := GetItemDataFromSap("0021030129")
+	items, err := GetItemDataFromSap("0021050008")
 	if err != nil {
 		return fmt.Errorf("error getting item data from SAP: %v", err)
 	}

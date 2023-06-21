@@ -83,19 +83,31 @@ func IncorporatePercentAmountInIngredient(ingredient string, percentAmount strin
 	if parenthesesIndex == -1 {
 		ingredient = ingredient + " (" + percentAmount + "%)"
 	} else {
-		ingredient = ingredient[:parenthesesIndex] + "(" + percentAmount + "%)" + ingredient[parenthesesIndex:]
+		ingredient = ingredient[:parenthesesIndex] + "(" + percentAmount + "%) " + ingredient[parenthesesIndex:]
 	}
 
 	return ingredient
 }
 
 func CheckIfIngredientIsClaimed(claimedIngredientsString string, ingredient string) bool {
-	claimedIngredients := strings.Split(claimedIngredientsString, ", ")
+	claimedIngredients := strings.Split(claimedIngredientsString, ",")
 	for _, claimedIngredient := range claimedIngredients {
 
-		//TODO: Should we just do the trim prefix for one 0 ten times instead to make sure theres no zeroes?
-		claimedIngredient = strings.TrimPrefix(claimedIngredient, "000000")
+		claimedIngredient = strings.TrimSpace(claimedIngredient)
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimPrefix(claimedIngredient, "0")
+		claimedIngredient = strings.TrimSpace(claimedIngredient)
 		ingredient = strings.TrimPrefix(ingredient, "000000")
+
 		if claimedIngredient == ingredient {
 			return true
 		}

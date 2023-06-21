@@ -88,7 +88,7 @@ func HandleConcatAllListOfIngredients(listOfIngredients []RawMaterial, salesItem
 // Takes a list of ingredients and returns a list of ingredients with the same ingredients concatenated
 func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuantity float64, allRawMaterialsMap map[string]map[string]string, languageCode string, salesItem sap_api_wrapper.SapApiItemsData) (string, error) {
 
-	listOfIngredients := ""
+	listOfIngredients := getStartOfIngredientList(languageCode)
 	hasError := false
 	containmentMap := make(map[string]string)
 
@@ -106,6 +106,7 @@ func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuan
 
 		} else {
 			needsPercent := CheckIfIngredientIsClaimed(salesItem.ClaimedIngredients, ingredient.ItemCode)
+
 			if needsPercent {
 				percentOfIngredientOnProduct := FindCorrectPrecision(ingredient.Quantity / totalQuantity * 100)
 
@@ -139,4 +140,19 @@ func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuan
 	listOfIngredients += containmentString
 
 	return listOfIngredients, nil
+}
+
+func getStartOfIngredientList(languageCode string) string {
+	startOfIngredientListMap := map[string]string{
+		"DA_SE_NO": "DA/SE/NO Ingredienser: ",
+		"EN":       "EN Ingredients: ",
+		"FI":       "FI Ainesosat: ",
+		"DE":       "DE Zutaten: ",
+		"NL":       "NL Ingrediënten: ",
+		"FR":       "FR Ingrédients: ",
+		"PT":       "PT Ingredientes: ",
+		"IT":       "IT Ingredienti: ",
+		"ES":       "ES Ingredientes: ",
+	}
+	return startOfIngredientListMap[languageCode]
 }
