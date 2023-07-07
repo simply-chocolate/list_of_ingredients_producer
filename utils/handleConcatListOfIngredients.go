@@ -33,6 +33,12 @@ func HandleConcatAllListOfIngredients(listOfIngredients []RawMaterial, salesItem
 	}
 	salesItem.IngredientsScandinavian = listOfIngredientsScandinavian
 
+	listOfIngredientsDanish, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "DA", salesItem)
+	if err != nil {
+		return sap_api_wrapper.SapApiItemsData{}, err
+	}
+	salesItem.IngredientsDanish = listOfIngredientsDanish
+
 	listOfIngredientsEnglish, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "EN", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
@@ -145,6 +151,7 @@ func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuan
 func getStartOfIngredientList(languageCode string) string {
 	startOfIngredientListMap := map[string]string{
 		"DA_SE_NO": "DA/SE/NO Ingredienser: ",
+		"DA":       "DA Ingredienser: ",
 		"EN":       "EN Ingredients: ",
 		"FI":       "FI Ainesosat: ",
 		"DE":       "DE Zutaten: ",

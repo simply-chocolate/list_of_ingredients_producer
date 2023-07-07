@@ -8,6 +8,7 @@ func getCocoaDryMatterString(materialsOnProduct []RawMaterial, allRawMaterials m
 
 	cocoaDryMatterString := ""
 	hasDarkChocolate := false
+	hasVeryDarkChocolate := false
 	hasMilkChocolate := false
 
 	for _, material := range materialsOnProduct {
@@ -21,7 +22,11 @@ func getCocoaDryMatterString(materialsOnProduct []RawMaterial, allRawMaterials m
 		// Also weather its "dark", "milk" or "cocoa nibs"
 		if strings.Contains(materialInfo["ItemName"], "chokolade") || strings.Contains(materialInfo["ItemName"], "Chokolade") {
 			if strings.Contains(materialInfo["ItemName"], "Mørk") || strings.Contains(materialInfo["ItemName"], "mørk") {
-				hasDarkChocolate = true
+				if strings.Contains(materialInfo["ItemName"], "70%") {
+					hasVeryDarkChocolate = true
+				} else {
+					hasDarkChocolate = true
+				}
 			}
 			if strings.Contains(materialInfo["ItemName"], "Mælk") || strings.Contains(materialInfo["ItemName"], "mælk") {
 				hasMilkChocolate = true
@@ -29,8 +34,22 @@ func getCocoaDryMatterString(materialsOnProduct []RawMaterial, allRawMaterials m
 		}
 	}
 
+	veryDarkChocolateCocoaDryMatterMap := map[string]string{
+		"DA_SE_NO": "Mørk chokolade: Mindst 70% kakaotørstof. ",
+		"DA":       "Mørk chokolade: Mindst 70% kakaotørstof. ",
+		"EN":       "Min. 70% dry cocoa solids in the dark chocolate. ",
+		"FI":       "Tumman suklaan kaakaokuiva-aineen pitoisuus vähintään 70%. ",
+		"DE":       "Mindestens 70% Kakaotrockenmasse in dunkler Schokolade. ",
+		"NL":       "Ten minste 70% droge cacaobestanddelen in de pure chocola. ",
+		"FR":       "Minimum 70% de cacao sec dans le chocolat noir. ",
+		"PT":       "Pelo menos 70% de teor de cacau no chocolate escuro. ",
+		"IT":       "Contenuto di cacao minimo 70% della sostanza secca nel cioccolato fondente. ",
+		"ES":       "Al menos 70% de sólidos secos de cacao en el chocolate amargo. ",
+	}
+
 	darkChocolateCocoaDryMatterMap := map[string]string{
-		"DA_SE_NO": "Mindst 60% kakaotørstofindhold/kakaoinnehåll i den mørke/mörka chokolade/choklad/sjokolade. ",
+		"DA_SE_NO": "Mørk chokolade: Mindst 60% kakaotørstof. ",
+		"DA":       "Mørk chokolade: Mindst 60% kakaotørstof. ",
 		"EN":       "Min. 60% dry cocoa solids in the dark chocolate. ",
 		"FI":       "Tumman suklaan kaakaokuiva-aineen pitoisuus vähintään 60%. ",
 		"DE":       "Mindestens 60% Kakaotrockenmasse in dunkler Schokolade. ",
@@ -41,7 +60,8 @@ func getCocoaDryMatterString(materialsOnProduct []RawMaterial, allRawMaterials m
 		"ES":       "Al menos 60% de sólidos secos de cacao en el chocolate amargo. ",
 	}
 	milkChocolateCocoaDryMatterMap := map[string]string{
-		"DA_SE_NO": "Mindst 35% kakaotørstofindhold/kakaoinnehåll i mælke/mjölkchokoladen/-choklad/-sjokoladen. ",
+		"DA_SE_NO": "Mælke-/mjölk-chokolade: Mindst 35% kakaotørstof. ",
+		"DA":       "Mælke-/mjölk-chokolade: Mindst 35% kakaotørstof. ",
 		"EN":       "Min. 35% dry cocoa solids in the milk chocolate. ",
 		"FI":       "Maitosuklaan kaakaokuiva-aineen pitoisuus vähintään 35%. ",
 		"DE":       "Mindestens 35% Kakaotrockenmasse in Milchschokolade. ",
@@ -54,6 +74,9 @@ func getCocoaDryMatterString(materialsOnProduct []RawMaterial, allRawMaterials m
 
 	if hasDarkChocolate {
 		cocoaDryMatterString += darkChocolateCocoaDryMatterMap[languageCode]
+	}
+	if hasVeryDarkChocolate {
+		cocoaDryMatterString += veryDarkChocolateCocoaDryMatterMap[languageCode]
 	}
 	if hasMilkChocolate {
 		cocoaDryMatterString += milkChocolateCocoaDryMatterMap[languageCode]

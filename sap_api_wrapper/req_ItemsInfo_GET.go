@@ -17,6 +17,7 @@ type SapApiItemsData struct {
 
 	// Lists of ingredients
 	IngredientsScandinavian string `json:"U_CCF_Ingrediens_DA_SE_NO"`
+	IngredientsDanish       string `json:"U_CCF_Ingrediens_DA"`
 	IngredientsFinnish      string `json:"U_CCF_Ingrediens_FI"`
 	IngredientsEnglish      string `json:"U_CCF_Ingrediens_EN"`
 	IngredientsGerman       string `json:"U_CCF_Ingrediens_DE"`
@@ -67,7 +68,6 @@ type SapApiItemsData struct {
 	NutritionalSugarValue         string `json:"U_BOYX_sukkerarter"`
 	NutritionalProteinValue       string `json:"U_BOYX_Protein"`
 	NutritionalSaltValue          string `json:"U_BOYX_salt"`
-	ListOfIngredientsDA           string `json:"U_BOYX_varedel"`
 }
 
 type SapApiGetItemsDataReturn struct {

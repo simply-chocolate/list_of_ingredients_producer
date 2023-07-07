@@ -113,13 +113,13 @@ func createStringOfTraceContamination(containMentMap map[string]string, language
 // Return a map of the allergens in all languages with language code as key
 func getAllergenMap() map[string]map[string]string {
 	allergenMap := map[string]map[string]string{
-		"Gluten":    {"DA_SE_NO": "gluten", "FI": "gluteeni", "EN": "gluten", "DE": "Gluten", "NL": "gluten", "FR": "gluten", "PT": "glúten", "IT": "glutine", "ES": "gluten"},
-		"Crustacea": {"DA_SE_NO": "krebsdyr/skaldjur/krepsdyr", "FI": "äyriäiset", "EN": "crustaceans", "DE": "Krebstiere", "NL": "schaaldieren", "FR": "crustacés", "PT": "crustáceos", "IT": "crostacei", "ES": "crustáceos"},
-		"Egg":       {"DA_SE_NO": "æg", "FI": "muna", "EN": "egg", "DE": "Ei", "NL": "ei", "FR": "oeuf", "PT": "ovo", "IT": "uovo", "ES": "huevo"},
-		"Fish":      {"DA_SE_NO": "fisk", "FI": "kala", "EN": "fish", "DE": "Fisch", "NL": "vis", "FR": "poisson", "PT": "peixe", "IT": "pesce", "ES": "pescado"},
-		"Peanut":    {"DA_SE_NO": "peanuts/jordnötter/peanøtt", "FI": "maapähkinä", "EN": "peanuts", "DE": "Erdnüsse", "NL": "pinda", "FR": "arachide", "PT": "amendoim", "IT": "arachidi", "ES": "cacahuete"},
-		"Soy":       {"DA_SE_NO": "soja/soya", "FI": "soija", "EN": "soy", "DE": "soja", "NL": "soja", "FR": "soja", "PT": "soja", "IT": "soia", "ES": "soja"},
-		"Milk":      {"DA_SE_NO": "mælk/mjölk/melk", "FI": "maito", "EN": "milk", "DE": "Milch", "NL": "melk", "FR": "lait", "PT": "leite", "IT": "latte", "ES": "leche"},
+		"Gluten":    {"DA_SE_NO": "gluten", "DA": "gluten", "FI": "gluteeni", "EN": "gluten", "DE": "Gluten", "NL": "gluten", "FR": "gluten", "PT": "glúten", "IT": "glutine", "ES": "gluten"},
+		"Crustacea": {"DA_SE_NO": "krebsdyr/skaldjur/krepsdyr", "DA": "krebsdyr", "FI": "äyriäiset", "EN": "crustaceans", "DE": "Krebstiere", "NL": "schaaldieren", "FR": "crustacés", "PT": "crustáceos", "IT": "crostacei", "ES": "crustáceos"},
+		"Egg":       {"DA_SE_NO": "æg", "DA": "æg", "FI": "muna", "EN": "egg", "DE": "Ei", "NL": "ei", "FR": "oeuf", "PT": "ovo", "IT": "uovo", "ES": "huevo"},
+		"Fish":      {"DA_SE_NO": "fisk", "DA": "fisk", "FI": "kala", "EN": "fish", "DE": "Fisch", "NL": "vis", "FR": "poisson", "PT": "peixe", "IT": "pesce", "ES": "pescado"},
+		"Peanut":    {"DA_SE_NO": "peanuts/jordnötter/peanøtt", "DA": "peanuts", "FI": "maapähkinä", "EN": "peanuts", "DE": "Erdnüsse", "NL": "pinda", "FR": "arachide", "PT": "amendoim", "IT": "arachidi", "ES": "cacahuete"},
+		"Soy":       {"DA_SE_NO": "soja", "DA": "soja", "FI": "soija", "EN": "soy", "DE": "soja", "NL": "soja", "FR": "soja", "PT": "soja", "IT": "soia", "ES": "soja"},
+		"Milk":      {"DA_SE_NO": "mælk/mjölk/melk", "DA": "mælk", "FI": "maito", "EN": "milk", "DE": "Milch", "NL": "melk", "FR": "lait", "PT": "leite", "IT": "latte", "ES": "leche"},
 		// TODO: These nuts are just gonna be called "nuts" in the allergen list.
 		// TODO: If we want this changed, we need to translate the DA_SE_NO better, its just in danish right now
 		//"Almonds":        {"DA_SE_NO": "Mandler", "FI": "Manteli", "EN": "Almonds", "DE": "Mandeln", "NL": "Amandel", "FR": "Amande", "PT": "Amêndoa", "IT": "Mandorle", "ES": "Almendra"},
@@ -130,13 +130,13 @@ func getAllergenMap() map[string]map[string]string {
 		//"BrazilNut":      {"DA_SE_NO": "Paranødder", "FI": "Parapähkinä", "EN": "Brazil nuts", "DE": "Paranüsse", "NL": "Paranoten", "FR": "Noix du Brésil", "PT": "Noz do Brasil", "IT": "Noci del Brasile", "ES": "Nuez de Brasil"},
 		//"Pistachio":      {"DA_SE_NO": "Pistacienødder", "FI": "Pistaasipähkinä", "EN": "Pistachios", "DE": "Pistazien", "NL": "Pistachenoten", "FR": "Pistache", "PT": "Pistácio", "IT": "Pistacchi", "ES": "Pistacho"},
 		//"QueenslandNut":  {"DA_SE_NO": "Queenslandnødder", "FI": "Queenslandpähkinä", "EN": "Queensland nuts", "DE": "Queenslandnüsse", "NL": "Queenslandnoten", "FR": "Noix du Queensland", "PT": "Noz de Queensland", "IT": "Noci del Queensland", "ES": "Nuez de Queensland"},
-		"Celery":         {"DA_SE_NO": "selleri/", "FI": "selleri", "EN": "celery", "DE": "Sellerie", "NL": "selderij", "FR": "céleri", "PT": "aipo", "IT": "sedano", "ES": "apio"},
-		"Mustard":        {"DA_SE_NO": "sennep/senap", "FI": "sinappi", "EN": "mustard", "DE": "Senf", "NL": "mosterd", "FR": "moutarde", "PT": "mostarda", "IT": "senape", "ES": "mostaza"},
-		"Sesame":         {"DA_SE_NO": "sesam", "FI": "seesami", "EN": "sesame", "DE": "Sesam", "NL": "sesam", "FR": "sésame", "PT": "sésamo", "IT": "sesamo", "ES": "sésamo"},
-		"SulphurDioxide": {"DA_SE_NO": "svovldioxid/svaveldioxid/svoveldioksid/", "FI": "rikkidioksidi", "EN": "sulphur dioxide", "DE": "Schwefeldioxid", "NL": "zwaveldioxide", "FR": "dioxyde de soufre", "PT": "dióxido de enxofre", "IT": "anidride solforosa", "ES": "dióxido de azufre"},
-		"Lupin":          {"DA_SE_NO": "lupin", "FI": "lupiini", "EN": "lupin", "DE": "Lupine", "NL": "lupine", "FR": "lupin", "PT": "lupino", "IT": "lupino", "ES": "lupino"},
-		"Molluscs":       {"DA_SE_NO": "bløddyr/mollusker/", "FI": "nilviäiset", "EN": "molluscs", "DE": "Weichtiere", "NL": "weekdieren", "FR": "mollusques", "PT": "moluscos", "IT": "molluschi", "ES": "moluscos"},
-		"Nuts":           {"DA_SE_NO": "nødder/nötter/nøtter", "FI": "pähkinät", "EN": "nuts", "DE": "Nüsse", "NL": "noten", "FR": "noix", "PT": "nozes", "IT": "noci", "ES": "nueces"},
+		"Celery":         {"DA_SE_NO": "selleri", "DA": "selleri", "FI": "selleri", "EN": "celery", "DE": "Sellerie", "NL": "selderij", "FR": "céleri", "PT": "aipo", "IT": "sedano", "ES": "apio"},
+		"Mustard":        {"DA_SE_NO": "sennep/senap", "DA": "sennep", "FI": "sinappi", "EN": "mustard", "DE": "Senf", "NL": "mosterd", "FR": "moutarde", "PT": "mostarda", "IT": "senape", "ES": "mostaza"},
+		"Sesame":         {"DA_SE_NO": "sesam", "DA": "sesam", "FI": "seesami", "EN": "sesame", "DE": "Sesam", "NL": "sesam", "FR": "sésame", "PT": "sésamo", "IT": "sesamo", "ES": "sésamo"},
+		"SulphurDioxide": {"DA_SE_NO": "svovldioxid/svavel-/svovel-dioksid", "DA": "svovldioxid", "FI": "rikkidioksidi", "EN": "sulphur dioxide", "DE": "Schwefeldioxid", "NL": "zwaveldioxide", "FR": "dioxyde de soufre", "PT": "dióxido de enxofre", "IT": "anidride solforosa", "ES": "dióxido de azufre"},
+		"Lupin":          {"DA_SE_NO": "lupin", "DA": "lupin", "FI": "lupiini", "EN": "lupin", "DE": "Lupine", "NL": "lupine", "FR": "lupin", "PT": "lupino", "IT": "lupino", "ES": "lupino"},
+		"Molluscs":       {"DA_SE_NO": "bløddyr/mollusker", "DA": "bløddyr", "FI": "nilviäiset", "EN": "molluscs", "DE": "Weichtiere", "NL": "weekdieren", "FR": "mollusques", "PT": "moluscos", "IT": "molluschi", "ES": "moluscos"},
+		"Nuts":           {"DA_SE_NO": "nødder/nötter/nøtter", "DA": "nødder", "FI": "pähkinät", "EN": "nuts", "DE": "Nüsse", "NL": "noten", "FR": "noix", "PT": "nozes", "IT": "noci", "ES": "nueces"},
 	}
 
 	return allergenMap
@@ -161,6 +161,7 @@ func getNutMap() map[string]string {
 func getStartOfMayContainMap() map[string]string {
 	mayContainTracesOfMap := map[string]string{
 		"DA_SE_NO": "Kan indeholde/innehålla spor/spår af/av ",
+		"DA":       "Kan indeholde spor af ",
 		"FI":       "Saattaa sisältää jäämiä ",
 		"EN":       "May contain traces of ",
 		"DE":       "Kann Spuren von ",
@@ -178,6 +179,7 @@ func getStartOfMayContainMap() map[string]string {
 func getEndOfMayContainMap() map[string]string {
 	mayContainTracesOfMap := map[string]string{
 		"DA_SE_NO": ".",
+		"DA":       ".",
 		"FI":       ".",
 		"EN":       ".",
 		"DE":       " enhalten.",
@@ -194,6 +196,7 @@ func getEndOfMayContainMap() map[string]string {
 func getAndMap() map[string]string {
 	andMap := map[string]string{
 		"DA_SE_NO": " og ",
+		"DA":       " og ",
 		"FI":       " ja ",
 		"EN":       " and ",
 		"DE":       " und ",

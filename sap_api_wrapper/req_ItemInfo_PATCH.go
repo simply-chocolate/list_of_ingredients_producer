@@ -9,6 +9,7 @@ type SapApiItemsDataBody struct {
 
 	// Lists of ingredients
 	IngredientsScandinavian string `json:"U_CCF_Ingrediens_DA_SE_NO"`
+	IngredientsDanish       string `json:"U_CCF_Ingrediens_DA"`
 	IngredientsFinnish      string `json:"U_CCF_Ingrediens_FI"`
 	IngredientsEnglish      string `json:"U_CCF_Ingrediens_EN"`
 	IngredientsGerman       string `json:"U_CCF_Ingrediens_DE"`
@@ -70,6 +71,7 @@ func SetItemData(item SapApiItemsData) error {
 	var itemDataBody SapApiItemsDataBody
 	itemDataBody.ItemCode = item.ItemCode
 	itemDataBody.IngredientsScandinavian = item.IngredientsScandinavian
+	itemDataBody.IngredientsDanish = item.IngredientsDanish
 	itemDataBody.IngredientsFinnish = item.IngredientsFinnish
 	itemDataBody.IngredientsEnglish = item.IngredientsEnglish
 	itemDataBody.IngredientsGerman = item.IngredientsGerman
