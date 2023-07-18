@@ -68,11 +68,11 @@ func HandleAllItemsListOfIngredients() error {
 			differences := FindDifferences(item, salesItem)
 
 			if len(differences) > 0 {
-				teams_notifier.SendProductUpdatedMessageToTemas(salesItem.ItemCode, FindDifferences(item, salesItem))
 				err = sap_api_wrapper.SetItemData(salesItem)
 				if err != nil {
 					return err
 				}
+				teams_notifier.SendProductUpdatedMessageToTemas(salesItem.ItemCode, FindDifferences(item, salesItem))
 			}
 
 			return nil
