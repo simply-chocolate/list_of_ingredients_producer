@@ -2,6 +2,7 @@ package sap_api_wrapper
 
 import (
 	"fmt"
+	"strings"
 )
 
 type SapApiItemsDataBody struct {
@@ -53,17 +54,25 @@ type SapApiItemsDataBody struct {
 	*/
 
 	// Nutritional Information
-	/*
-		EnergyInkJ                    string `json:"U_BOYX_Energi"`
-		EnergyInKcal                  string `json:"U_BOYX_Energik"`
-		NutritionalFatValue           string `json:"U_BOYX_fedt"`
-		NutritionalFattyAcidsValue    string `json:"U_BOYX_fedtsyre"`
-		NutritionalCarboHydratesValue string `json:"U_BOYX_Kulhydrat"`
-		NutritionalSugarValue         string `json:"U_BOYX_sukkerarter"`
-		NutritionalProteinValue       string `json:"U_BOYX_Protein"`
-		NutritionalSaltValue          string `json:"U_BOYX_salt"`
-		ListOfIngredientsDA           string `json:"U_BOYX_varedel"`
-	*/
+
+	EnergyInkJ                    string `json:"U_BOYX_Energi"`
+	EnergyInKcal                  string `json:"U_BOYX_Energik"`
+	NutritionalFatValue           string `json:"U_BOYX_fedt"`
+	NutritionalFattyAcidsValue    string `json:"U_BOYX_fedtsyre"`
+	NutritionalCarboHydratesValue string `json:"U_BOYX_Kulhydrat"`
+	NutritionalSugarValue         string `json:"U_BOYX_sukkerarter"`
+	NutritionalProteinValue       string `json:"U_BOYX_Protein"`
+	NutritionalSaltValue          string `json:"U_BOYX_salt"`
+}
+
+type SapApiErrorResult struct {
+	ErrorMessage struct {
+		Code    int `json:"code"`
+		Message struct {
+			Lang  string `json:"lang"`
+			Value string `json:"value"`
+		} `json:"message"`
+	} `json:"error"`
 }
 
 // Takes a SAP Item and patches it in SAP
@@ -80,6 +89,14 @@ func SetItemData(item SapApiItemsData) error {
 	itemDataBody.IngredientsPortuguese = item.IngredientsPortuguese
 	itemDataBody.IngredientsItalian = item.IngredientsItalian
 	itemDataBody.IngredientsSpanish = item.IngredientsSpanish
+	itemDataBody.EnergyInkJ = strings.Replace(fmt.Sprint(item.EnergyInkJ), ".", ",", -1)
+	itemDataBody.EnergyInKcal = strings.Replace(fmt.Sprint(item.EnergyInKcal), ".", ",", -1)
+	itemDataBody.NutritionalFatValue = strings.Replace(fmt.Sprint(item.NutritionalFatValue), ".", ",", -1)
+	itemDataBody.NutritionalFattyAcidsValue = strings.Replace(fmt.Sprint(item.NutritionalFattyAcidsValue), ".", ",", -1)
+	itemDataBody.NutritionalCarboHydratesValue = strings.Replace(fmt.Sprint(item.NutritionalCarboHydratesValue), ".", ",", -1)
+	itemDataBody.NutritionalSugarValue = strings.Replace(fmt.Sprint(item.NutritionalSugarValue), ".", ",", -1)
+	itemDataBody.NutritionalProteinValue = strings.Replace(fmt.Sprint(item.NutritionalProteinValue), ".", ",", -1)
+	itemDataBody.NutritionalSaltValue = strings.Replace(fmt.Sprint(item.NutritionalSaltValue), ".", ",", -1)
 
 	client, err := GetSapApiAuthClient()
 	if err != nil {
@@ -92,6 +109,7 @@ func SetItemData(item SapApiItemsData) error {
 		R().
 		EnableDump().
 		SetSuccessResult(SapApiPostLoginResult{}).
+		SetErrorResult(SapApiErrorResult{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(itemDataBody).
 		Patch(fmt.Sprintf("Items('%v')", item.ItemCode))
@@ -99,12 +117,13 @@ func SetItemData(item SapApiItemsData) error {
 		return err
 	}
 	if resp.IsErrorState() {
-		fmt.Printf("resp is err statusCode: %v. Dump: %v\n", resp.StatusCode, resp.Dump())
-		return resp.Err
-	}
-
-	if resp.StatusCode != 204 {
-		return fmt.Errorf("unexpected errorcode when patching the items endpoint. Itemcode:%v. StatusCode:%v", itemDataBody.ItemCode, resp.StatusCode)
+		errorResponse := resp.ErrorResult().(*SapApiErrorResult)
+		if resp.StatusCode == 400 {
+			fmt.Printf("resp is errorcode 400, response:%v\n", errorResponse.ErrorMessage.Message.Value)
+		} else {
+			fmt.Printf("resp is err statusCode: %v. Dump: %v\n", resp.StatusCode, resp.Dump())
+			return nil
+		}
 	}
 
 	return nil

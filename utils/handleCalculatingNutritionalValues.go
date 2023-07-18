@@ -49,7 +49,7 @@ func CalculateNutritionalValues(
 	nutritionalStringMap["Protein"] = FindCorrectPrecision(nutritionalValuesMap["Protein"])
 	nutritionalStringMap["Salt"] = FindCorrectPrecision(nutritionalValuesMap["Salt"])
 
-	return map[string]string{}, nil
+	return nutritionalStringMap, nil
 }
 
 func handleAppendingNutritionalValues(
@@ -87,6 +87,12 @@ func handleAppendingNutritionalValues(
 	if err != nil {
 		return map[string]float64{}, fmt.Errorf("error parsing Protein to float with value: %v for rawMaterials: %v", err, itemCodeRawMaterial)
 	}
+	/*
+		salt, err := strconv.ParseFloat(strings.Replace(rawMaterial["Salt"], ",", ".", -1), 64)
+		if err != nil {
+			return map[string]float64{}, fmt.Errorf("error parsing Salt to float with value: %v for rawMaterials: %v", err, itemCodeRawMaterial)
+		}
+	*/
 	salt, err := strconv.ParseFloat(strings.Replace(rawMaterial["Salt"], ",", ".", -1), 64)
 	if err != nil {
 		return map[string]float64{}, fmt.Errorf("error parsing Salt to float with value: %v for rawMaterials: %v", err, itemCodeRawMaterial)

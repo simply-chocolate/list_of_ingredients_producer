@@ -7,10 +7,7 @@ import (
 
 func GetItemsDataFromSap() (sap_api_wrapper.SapApiGetItemsDataResults, error) {
 	resp, err := sap_api_wrapper.SapApiGetItemsData_AllPages(sap_api_wrapper.SapApiQueryParams{
-		// TODO: Add a new field in SAP to "X" so we can filter on that instead and only update the ListOfIngredients for those items we need to
-		// Alternatively we just go ahead with this and update all items every time
-		// Downside is we don't currently know which items are claimed
-		Filter: "U_CCF_Type eq 'Færdigvare'",
+		Filter: "U_CCF_Update_NUT eq 'Y'",
 	})
 	if err != nil {
 		return sap_api_wrapper.SapApiGetItemsDataResults{}, err

@@ -25,8 +25,8 @@ type BillOfMaterials []sap_api_wrapper.SapApiBillOfMaterialEntry
 
 // Retrieves all the needed items from SAP and updates the list of ingredients for each item
 func HandleAllItemsListOfIngredients() error {
-	//items, err := GetItemDataFromSap("0022030034-1")
-	items, err := GetItemDataFromSap("0022030101")
+	items, err := GetItemsDataFromSap()
+	//items, err := GetItemDataFromSap("0031030126")
 	if err != nil {
 		return fmt.Errorf("error getting item data from SAP: %v", err)
 	}
@@ -65,9 +65,14 @@ func HandleAllItemsListOfIngredients() error {
 				return err
 			}
 
-			err = sap_api_wrapper.SetItemData(salesItem)
-			if err != nil {
-				return err
+			differences := FindDifferences(item, salesItem)
+
+			if len(differences) > 0 {
+				teams_notifier.SendProductUpdatedMessageToTemas(salesItem.ItemCode, FindDifferences(item, salesItem))
+				err = sap_api_wrapper.SetItemData(salesItem)
+				if err != nil {
+					return err
+				}
 			}
 
 			return nil
