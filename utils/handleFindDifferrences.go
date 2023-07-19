@@ -33,34 +33,34 @@ func FindDifferences(oldItem sap_api_wrapper.SapApiItemsData, newItem sap_api_wr
 		differencesString += "**Salt** changed from _" + oldItem.NutritionalSaltValue + "_ to _" + strings.Replace(newItem.NutritionalSaltValue, ".", ",", -1) + "_<BR>"
 	}
 	if oldItem.IngredientsDanish != newItem.IngredientsDanish {
-		differencesString += "**IngredientsDanish** changed from <BR>_" + oldItem.IngredientsDanish + "_ to <BR>_" + newItem.IngredientsDanish + "_<BR>"
+		differencesString += "**IngredientsDanish** _Before:_<BR>" + oldItem.IngredientsDanish + "<BR>_After:_<BR>" + newItem.IngredientsDanish + "<BR>"
 	}
 	if oldItem.IngredientsDutch != newItem.IngredientsDutch {
-		differencesString += "**IngredientsDutch** changed from <BR>_" + oldItem.IngredientsDutch + "_ to <BR>_" + newItem.IngredientsDutch + "_<BR>"
+		differencesString += "**IngredientsDutch** _Before:_<BR>" + oldItem.IngredientsDutch + "<BR>_After:_<BR>" + newItem.IngredientsDutch + "<BR>"
 	}
 	if oldItem.IngredientsEnglish != newItem.IngredientsEnglish {
-		differencesString += "**IngredientsEnglish** changed from <BR>_" + oldItem.IngredientsEnglish + "_ to <BR>_" + newItem.IngredientsEnglish + "_<BR>"
+		differencesString += "**IngredientsEnglish** _Before:_<BR>" + oldItem.IngredientsEnglish + "<BR>_After:_<BR>" + newItem.IngredientsEnglish + "<BR>"
 	}
 	if oldItem.IngredientsFinnish != newItem.IngredientsFinnish {
-		differencesString += "**IngredientsFinnish** changed from <BR>_" + oldItem.IngredientsFinnish + "_ to <BR>_" + newItem.IngredientsFinnish + "_<BR>"
+		differencesString += "**IngredientsFinnish** _Before:_<BR>" + oldItem.IngredientsFinnish + "<BR>_After:_<BR>" + newItem.IngredientsFinnish + "<BR>"
 	}
 	if oldItem.IngredientsFrench != newItem.IngredientsFrench {
-		differencesString += "**IngredientsFrench** changed from <BR>_" + oldItem.IngredientsFrench + "_ to <BR>_" + newItem.IngredientsFrench + "_<BR>"
+		differencesString += "**IngredientsFrench** _Before:_<BR>" + oldItem.IngredientsFrench + "<BR>_After:_<BR>" + newItem.IngredientsFrench + "<BR>"
 	}
 	if oldItem.IngredientsGerman != newItem.IngredientsGerman {
-		differencesString += "**IngredientsGerman** changed from <BR>_" + oldItem.IngredientsGerman + "_ to <BR>_" + newItem.IngredientsGerman + "_<BR>"
+		differencesString += "**IngredientsGerman** _Before:_<BR>" + oldItem.IngredientsGerman + "<BR>_After:_<BR>" + newItem.IngredientsGerman + "<BR>"
 	}
 	if oldItem.IngredientsItalian != newItem.IngredientsItalian {
-		differencesString += "**IngredientsItalian** changed from <BR>_" + oldItem.IngredientsItalian + "_ to <BR>_" + newItem.IngredientsItalian + "_<BR>"
+		differencesString += "**IngredientsItalian** _Before:_<BR>" + oldItem.IngredientsItalian + "<BR>_After:_<BR>" + newItem.IngredientsItalian + "<BR>"
 	}
 	if oldItem.IngredientsPortuguese != newItem.IngredientsPortuguese {
-		differencesString += "**IngredientsPortuguese** changed from <BR>_" + oldItem.IngredientsPortuguese + "_ to <BR>_" + newItem.IngredientsPortuguese + "_<BR>"
+		differencesString += "**IngredientsPortuguese** _Before:_<BR>" + oldItem.IngredientsPortuguese + "<BR>_After:_<BR>" + newItem.IngredientsPortuguese + "<BR>"
 	}
 	if oldItem.IngredientsSpanish != newItem.IngredientsSpanish {
-		differencesString += "**IngredientsSpanish** changed from <BR>_" + oldItem.IngredientsSpanish + "_ to <BR>_" + newItem.IngredientsSpanish + "_<BR>"
+		differencesString += "**IngredientsSpanish** _Before:_<BR>" + oldItem.IngredientsSpanish + "<BR>_After:_<BR>" + newItem.IngredientsSpanish + "<BR>"
 	}
 	if oldItem.IngredientsScandinavian != newItem.IngredientsScandinavian {
-		differencesString += "**IngredientsScandinavian** changed from <BR>_" + oldItem.IngredientsScandinavian + "_ to <BR>_" + newItem.IngredientsScandinavian + "_<BR>"
+		differencesString += "**IngredientsScandinavian** _Before:_<BR>" + oldItem.IngredientsScandinavian + "<BR>_After:_<BR>" + newItem.IngredientsScandinavian + "<BR>"
 	}
 
 	return differencesString
