@@ -130,6 +130,7 @@ func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuan
 			} else {
 				listOfIngredients += ingredientFromMap[languageCode] + ", "
 			}
+
 		}
 	}
 

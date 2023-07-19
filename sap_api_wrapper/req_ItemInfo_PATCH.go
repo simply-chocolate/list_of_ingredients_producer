@@ -3,10 +3,13 @@ package sap_api_wrapper
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 type SapApiItemsDataBody struct {
-	ItemCode string `json:"ItemCode"`
+	ItemCode      string    `json:"ItemCode"`
+	UpdateNUT     string    `json:"U_CCF_Update_NUT"`
+	NutUpdateDate time.Time `json:"U_CCF_NUT_UpdateDate"`
 
 	// Lists of ingredients
 	IngredientsScandinavian string `json:"U_CCF_Ingrediens_DA_SE_NO"`
@@ -19,6 +22,7 @@ type SapApiItemsDataBody struct {
 	IngredientsPortuguese   string `json:"U_CCF_Ingrediens_PT"`
 	IngredientsItalian      string `json:"U_CCF_Ingrediens_IT"`
 	IngredientsSpanish      string `json:"U_CCF_Ingrediens_ES"`
+
 	/*
 		// Allergen containment information
 		ContainmentLevelGluten                   string `json:"U_BOYX_gluten"`
@@ -79,6 +83,8 @@ type SapApiErrorResult struct {
 func SetItemData(item SapApiItemsData) error {
 	var itemDataBody SapApiItemsDataBody
 	itemDataBody.ItemCode = item.ItemCode
+	itemDataBody.UpdateNUT = "N"
+	itemDataBody.NutUpdateDate = time.Now().UTC()
 	itemDataBody.IngredientsScandinavian = item.IngredientsScandinavian
 	itemDataBody.IngredientsDanish = item.IngredientsDanish
 	itemDataBody.IngredientsFinnish = item.IngredientsFinnish

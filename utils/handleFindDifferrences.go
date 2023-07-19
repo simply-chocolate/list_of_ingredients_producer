@@ -1,63 +1,66 @@
 package utils
 
-import "list_of_ingredients_producer/sap_api_wrapper"
+import (
+	"list_of_ingredients_producer/sap_api_wrapper"
+	"strings"
+)
 
 func FindDifferences(oldItem sap_api_wrapper.SapApiItemsData, newItem sap_api_wrapper.SapApiItemsData) string {
 	differencesString := ""
 
-	if oldItem.EnergyInKcal != newItem.EnergyInKcal {
-		differencesString += "**EnergyInKcal** changed from " + oldItem.EnergyInKcal + " to " + newItem.EnergyInKcal + "<BR>"
+	if oldItem.EnergyInKcal != strings.Replace(newItem.EnergyInKcal, ".", ",", -1) {
+		differencesString += "**EnergyInKcal** changed from _" + oldItem.EnergyInKcal + "_ to _" + strings.Replace(newItem.EnergyInKcal, ".", ",", -1) + "_<BR>"
 	}
-	if oldItem.EnergyInkJ != newItem.EnergyInkJ {
-		differencesString += "**EnergyInkJ** changed from " + oldItem.EnergyInkJ + " to " + newItem.EnergyInkJ + "<BR>"
+	if oldItem.EnergyInkJ != strings.Replace(newItem.EnergyInkJ, ".", ",", -1) {
+		differencesString += "**EnergyInkJ** changed from _" + oldItem.EnergyInkJ + "_ to _" + strings.Replace(newItem.EnergyInkJ, ".", ",", -1) + "_<BR>"
 	}
-	if oldItem.NutritionalFatValue != newItem.NutritionalFatValue {
-		differencesString += "**Fat** changed from " + oldItem.NutritionalFatValue + " to " + newItem.NutritionalFatValue + "<BR>"
+	if oldItem.NutritionalFatValue != strings.Replace(newItem.NutritionalFatValue, ".", ",", -1) {
+		differencesString += "**Fat** changed from _" + oldItem.NutritionalFatValue + "_ to _" + strings.Replace(newItem.NutritionalFatValue, ".", ",", -1) + "_<BR>"
 	}
-	if oldItem.NutritionalFattyAcidsValue != newItem.NutritionalFattyAcidsValue {
-		differencesString += "**FattyAcids** changed from " + oldItem.NutritionalFattyAcidsValue + " to " + newItem.NutritionalFattyAcidsValue + "<BR>"
+	if oldItem.NutritionalFattyAcidsValue != strings.Replace(newItem.NutritionalFattyAcidsValue, ".", ",", -1) {
+		differencesString += "**FattyAcids** changed from _" + oldItem.NutritionalFattyAcidsValue + "_ to _" + strings.Replace(newItem.NutritionalFattyAcidsValue, ".", ",", -1) + "_<BR>"
 	}
-	if oldItem.NutritionalCarboHydratesValue != newItem.NutritionalCarboHydratesValue {
-		differencesString += "**CarboHydrates** changed from " + oldItem.NutritionalCarboHydratesValue + " to " + newItem.NutritionalCarboHydratesValue + "<BR>"
+	if oldItem.NutritionalCarboHydratesValue != strings.Replace(newItem.NutritionalCarboHydratesValue, ".", ",", -1) {
+		differencesString += "**CarboHydrates** changed from _" + oldItem.NutritionalCarboHydratesValue + "_ to _" + strings.Replace(newItem.NutritionalCarboHydratesValue, ".", ",", -1) + "_<BR>"
 	}
-	if oldItem.NutritionalSugarValue != newItem.NutritionalSugarValue {
-		differencesString += "**Sugar** changed from " + oldItem.NutritionalSugarValue + " to " + newItem.NutritionalSugarValue + "<BR>"
+	if oldItem.NutritionalSugarValue != strings.Replace(newItem.NutritionalSugarValue, ".", ",", -1) {
+		differencesString += "**Sugar** changed from _" + oldItem.NutritionalSugarValue + "_ to _" + strings.Replace(newItem.NutritionalSugarValue, ".", ",", -1) + "_<BR>"
 	}
-	if oldItem.NutritionalProteinValue != newItem.NutritionalProteinValue {
-		differencesString += "**Protein** changed from " + oldItem.NutritionalProteinValue + " to " + newItem.NutritionalProteinValue + "<BR>"
+	if oldItem.NutritionalProteinValue != strings.Replace(newItem.NutritionalProteinValue, ".", ",", -1) {
+		differencesString += "**Protein** changed from _" + oldItem.NutritionalProteinValue + "_ to _" + strings.Replace(newItem.NutritionalProteinValue, ".", ",", -1) + "_<BR>"
 	}
-	if oldItem.NutritionalSaltValue != newItem.NutritionalSaltValue {
-		differencesString += "**Salt** changed from " + oldItem.NutritionalSaltValue + " to " + newItem.NutritionalSaltValue + "<BR>"
+	if oldItem.NutritionalSaltValue != strings.Replace(newItem.NutritionalSaltValue, ".", ",", -1) {
+		differencesString += "**Salt** changed from _" + oldItem.NutritionalSaltValue + "_ to _" + strings.Replace(newItem.NutritionalSaltValue, ".", ",", -1) + "_<BR>"
 	}
 	if oldItem.IngredientsDanish != newItem.IngredientsDanish {
-		differencesString += "**IngredientsDanish** changed from " + oldItem.IngredientsDanish + " to " + newItem.IngredientsDanish + "<BR>"
+		differencesString += "**IngredientsDanish** changed from _" + oldItem.IngredientsDanish + "_ to _" + newItem.IngredientsDanish + "_<BR>"
 	}
 	if oldItem.IngredientsDutch != newItem.IngredientsDutch {
-		differencesString += "**IngredientsDutch** changed from " + oldItem.IngredientsDutch + " to " + newItem.IngredientsDutch + "<BR>"
+		differencesString += "**IngredientsDutch** changed from _" + oldItem.IngredientsDutch + "_ to _" + newItem.IngredientsDutch + "_<BR>"
 	}
 	if oldItem.IngredientsEnglish != newItem.IngredientsEnglish {
-		differencesString += "**IngredientsEnglish** changed from " + oldItem.IngredientsEnglish + " to " + newItem.IngredientsEnglish + "<BR>"
+		differencesString += "**IngredientsEnglish** changed from _" + oldItem.IngredientsEnglish + "_ to _" + newItem.IngredientsEnglish + "_<BR>"
 	}
 	if oldItem.IngredientsFinnish != newItem.IngredientsFinnish {
-		differencesString += "**IngredientsFinnish** changed from " + oldItem.IngredientsFinnish + " to " + newItem.IngredientsFinnish + "<BR>"
+		differencesString += "**IngredientsFinnish** changed from _" + oldItem.IngredientsFinnish + "_ to _" + newItem.IngredientsFinnish + "_<BR>"
 	}
 	if oldItem.IngredientsFrench != newItem.IngredientsFrench {
-		differencesString += "**IngredientsFrench** changed from " + oldItem.IngredientsFrench + " to " + newItem.IngredientsFrench + "<BR>"
+		differencesString += "**IngredientsFrench** changed from _" + oldItem.IngredientsFrench + "_ to _" + newItem.IngredientsFrench + "_<BR>"
 	}
 	if oldItem.IngredientsGerman != newItem.IngredientsGerman {
-		differencesString += "**IngredientsGerman** changed from " + oldItem.IngredientsGerman + " to " + newItem.IngredientsGerman + "<BR>"
+		differencesString += "**IngredientsGerman** changed from _" + oldItem.IngredientsGerman + "_ to _" + newItem.IngredientsGerman + "_<BR>"
 	}
 	if oldItem.IngredientsItalian != newItem.IngredientsItalian {
-		differencesString += "**IngredientsItalian** changed from " + oldItem.IngredientsItalian + " to " + newItem.IngredientsItalian + "<BR>"
+		differencesString += "**IngredientsItalian** changed from _" + oldItem.IngredientsItalian + "_ to _" + newItem.IngredientsItalian + "_<BR>"
 	}
 	if oldItem.IngredientsPortuguese != newItem.IngredientsPortuguese {
-		differencesString += "**IngredientsPortuguese** changed from " + oldItem.IngredientsPortuguese + " to " + newItem.IngredientsPortuguese + "<BR>"
+		differencesString += "**IngredientsPortuguese** changed from _" + oldItem.IngredientsPortuguese + "_ to _" + newItem.IngredientsPortuguese + "_<BR>"
 	}
 	if oldItem.IngredientsSpanish != newItem.IngredientsSpanish {
-		differencesString += "**IngredientsSpanish** changed from " + oldItem.IngredientsSpanish + " to " + newItem.IngredientsSpanish + "<BR>"
+		differencesString += "**IngredientsSpanish** changed from _" + oldItem.IngredientsSpanish + "_ to _" + newItem.IngredientsSpanish + "_<BR>"
 	}
 	if oldItem.IngredientsScandinavian != newItem.IngredientsScandinavian {
-		differencesString += "**IngredientsScandinavian** changed from " + oldItem.IngredientsScandinavian + " to " + newItem.IngredientsScandinavian + "<BR>"
+		differencesString += "**IngredientsScandinavian** changed from _" + oldItem.IngredientsScandinavian + "_ to _" + newItem.IngredientsScandinavian + "_<BR>"
 	}
 
 	return differencesString

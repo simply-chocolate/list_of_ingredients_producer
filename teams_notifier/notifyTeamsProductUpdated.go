@@ -14,9 +14,9 @@ func SendProductUpdatedMessageToTemas(itemCode string, changedFields string) {
 
 	card := messagecard.NewMessageCard()
 	card.Title = "Item Updated in SAP"
-	card.Text = fmt.Sprintf("the script has updated the following item.<BR/>"+
-		"**ItemCode**: _%v_<BR/>"+
-		"**Changed fields**: %v <BR/>", itemCode, changedFields)
+	card.Text = fmt.Sprintf("the script has updated the following item.<BR>"+
+		"**ItemCode**: %v<BR>"+
+		"**Changed fields**:<BR> %v ", itemCode, changedFields)
 
 	if err := client.Send(webhook, card); err != nil {
 		fmt.Println("SendOrderErrorToTeams failed to send the error.")

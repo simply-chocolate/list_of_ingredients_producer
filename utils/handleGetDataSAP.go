@@ -35,7 +35,7 @@ func GetRawMaterialsItemDataFromSap() (map[string]map[string]string, error) {
 
 		// Lists of ingredients
 		rawMaterialItemData["DA_SE_NO"] = item.IngredientsScandinavian
-		rawMaterialItemData["DA"] = item.IngredientsScandinavian
+		rawMaterialItemData["DA"] = item.IngredientsDanish
 		rawMaterialItemData["FI"] = item.IngredientsFinnish
 		rawMaterialItemData["EN"] = item.IngredientsEnglish
 		rawMaterialItemData["DE"] = item.IngredientsGerman
