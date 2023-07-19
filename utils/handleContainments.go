@@ -2,6 +2,7 @@ package utils
 
 import (
 	"list_of_ingredients_producer/sap_api_wrapper"
+	"sort"
 )
 
 // Takes a containmentMap and the Raw Material containments and adjusts the containment map if the Raw Material has any allergens with greater contamination
@@ -69,6 +70,7 @@ func checkIfContainmentIsGreater(currentContainment string, rawMaterialContainme
 // Takes a containment map and a language code
 // returns a string of the allergens that the product may contain traces of in the given language
 func createStringOfTraceContamination(containMentMap map[string]string, languageCode string) string {
+
 	containmentString := getStartOfMayContainMap()[languageCode]
 	tracesSlice := []string{}
 	nutMap := getNutMap()
@@ -92,6 +94,10 @@ func createStringOfTraceContamination(containMentMap map[string]string, language
 	if hasNuts {
 		tracesSlice = append(tracesSlice, "Nuts")
 	}
+
+	sort.Slice(tracesSlice, func(i, j int) bool {
+		return tracesSlice[i] < tracesSlice[j]
+	})
 
 	// Then we need to add the allergens to the string
 	allergenMap := getAllergenMap()

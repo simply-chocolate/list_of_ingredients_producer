@@ -143,6 +143,7 @@ func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuan
 	listOfIngredients += cocoaDryMatterString
 
 	containmentMap = FindAllAllergenContaminationsSalesItem(containmentMap, salesItem)
+
 	containmentString := createStringOfTraceContamination(containmentMap, languageCode)
 	listOfIngredients += containmentString
 
