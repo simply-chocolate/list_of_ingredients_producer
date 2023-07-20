@@ -90,9 +90,13 @@ func HandleConcatAllListOfIngredients(listOfIngredients []RawMaterial, salesItem
 	return salesItem, nil
 }
 
-// TODO: Create a meaningful description for this function
 // Takes a list of ingredients and returns a list of ingredients with the same ingredients concatenated
 func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuantity float64, allRawMaterialsMap map[string]map[string]string, languageCode string, salesItem sap_api_wrapper.SapApiItemsData) (string, error) {
+	// How does glucose on 0021030133 change position?
+	// -> It's because the amount of glucose and white chocolate is equal.
+	// -> If two ingredients have the same amount, the should be sorted alphabetically.
+	// TODO: Fix the issue described above.
+	// https://www.diffchecker.com/text-compare/
 
 	listOfIngredients := getStartOfIngredientList(languageCode)
 	hasError := false

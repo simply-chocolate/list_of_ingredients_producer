@@ -27,7 +27,13 @@ func SortMaterialsByQuantity(materials map[string]float64) []RawMaterial {
 	}
 
 	sort.Slice(materialsSlice, func(i, j int) bool {
-		return materialsSlice[i].Quantity > materialsSlice[j].Quantity
+		// First, compare the quantities
+		if materialsSlice[i].Quantity != materialsSlice[j].Quantity {
+			return materialsSlice[i].Quantity > materialsSlice[j].Quantity
+		}
+
+		// If quantities are equal, sort alphabetically by ItemCode
+		return materialsSlice[i].ItemCode < materialsSlice[j].ItemCode
 	})
 
 	return materialsSlice
