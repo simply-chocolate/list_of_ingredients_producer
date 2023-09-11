@@ -23,39 +23,37 @@ type SapApiItemsDataBody struct {
 	IngredientsItalian      string `json:"U_CCF_Ingrediens_IT"`
 	IngredientsSpanish      string `json:"U_CCF_Ingrediens_ES"`
 
-	/*
-		// Allergen containment information
-		ContainmentLevelGluten                   string `json:"U_BOYX_gluten"`
-		ContainmentLevelCrustacea                string `json:"U_BOYX_Krebsdyr"`
-		ContainmentLevelEgg                      string `json:"U_BOYX_aag"`
-		ContainmentLevelFish                     string `json:"U_BOYX_fisk"`
-		ContainmentLevelPeanut                   string `json:"U_BOYX_JN"`
-		ContainmentLevelSoy                      string `json:"U_BOYX_soja"`
-		ContainmentLevelMilk                     string `json:"U_BOYX_ML"`
-		ContainmentLevelAlmonds                  string `json:"U_BOYX_mandel"`
-		ContainmentLevelHazelnut                 string `json:"U_BOYX_hassel"`
-		ContainmentLevelWalnut                   string `json:"U_BOYX_val"`
-		ContainmentLevelCashew                   string `json:"U_BOYX_Cashe"`
-		ContainmentLevelPecan                    string `json:"U_BOYX_Pekan"`
-		ContainmentLevelBrazilNut                string `json:"U_BOYX_peka"`
-		ContainmentLevelPistachio                string `json:"U_BOYX_Pistacie"`
-		ContainmentLevelQueenslandNut            string `json:"U_BOYX_Queensland"`
-		ContainmentLevelCelery                   string `json:"U_BOYX_Selleri"`
-		ContainmentLevelMustard                  string `json:"U_BOYX_Sennep"`
-		ContainmentLevelSulfurDioxideAndSulfites string `json:"U_BOYX_Svovldioxid"`
-		ContainmentLevelSesameSeeds              string `json:"U_BOYX_Sesam"`
-		ContainmentLevelLupine                   string `json:"U_BOYX_Lupin"`
-		ContainmentLevelMollusks                 string `json:"U_BOYX_BL"`
+	// Allergen containment information
+	ContainmentLevelGluten                   string `json:"U_BOYX_gluten"`
+	ContainmentLevelCrustacea                string `json:"U_BOYX_Krebsdyr"`
+	ContainmentLevelEgg                      string `json:"U_BOYX_aag"`
+	ContainmentLevelFish                     string `json:"U_BOYX_fisk"`
+	ContainmentLevelPeanut                   string `json:"U_BOYX_JN"`
+	ContainmentLevelSoy                      string `json:"U_BOYX_soja"`
+	ContainmentLevelMilk                     string `json:"U_BOYX_ML"`
+	ContainmentLevelAlmonds                  string `json:"U_BOYX_mandel"`
+	ContainmentLevelHazelnut                 string `json:"U_BOYX_hassel"`
+	ContainmentLevelWalnut                   string `json:"U_BOYX_val"`
+	ContainmentLevelCashew                   string `json:"U_BOYX_Cashe"`
+	ContainmentLevelPecan                    string `json:"U_BOYX_Pekan"`
+	ContainmentLevelBrazilNut                string `json:"U_BOYX_peka"`
+	ContainmentLevelPistachio                string `json:"U_BOYX_Pistacie"`
+	ContainmentLevelQueenslandNut            string `json:"U_BOYX_Queensland"`
+	ContainmentLevelCelery                   string `json:"U_BOYX_Selleri"`
+	ContainmentLevelMustard                  string `json:"U_BOYX_Sennep"`
+	ContainmentLevelSesameSeeds              string `json:"U_BOYX_Sesam"`
+	ContainmentLevelSulfurDioxideAndSulfites string `json:"U_BOYX_Svovldioxid"`
+	ContainmentLevelLupine                   string `json:"U_BOYX_Lupin"`
+	ContainmentLevelMollusks                 string `json:"U_BOYX_BL"`
 
-		// Claims
-		GlutenFree  string `json:"U_BOYX_Gluten1"`
-		LactoseFree string `json:"U_BOYX_Lactose"`
-		Vegetarian  string `json:"U_BOYX_Vegetar"`
-		Vegan       string `json:"U_BOYX_Vegan"`
-		CowFree     string `json:"U_BOYX_Okse"`
-		PigFree     string `json:"U_BOYX_gris"`
-		GMOFree     string `json:"U_BOYX_GMO"`
-	*/
+	// Claims
+	GlutenFree  string `json:"U_BOYX_Gluten1"`
+	LactoseFree string `json:"U_BOYX_Lactose"`
+	Vegetarian  string `json:"U_BOXY_Vegetar"`
+	Vegan       string `json:"U_BOXY_Vegan"`
+	CowFree     string `json:"U_BOYX_Oske"`
+	PigFree     string `json:"U_BOYX_gris"`
+	GMOFree     string `json:"U_BOYX_GMO"`
 
 	// Nutritional Information
 
@@ -81,6 +79,7 @@ type SapApiErrorResult struct {
 
 // Takes a SAP Item and patches it in SAP
 func SetItemData(item SapApiItemsData) error {
+
 	var itemDataBody SapApiItemsDataBody
 	itemDataBody.ItemCode = item.ItemCode
 	itemDataBody.UpdateNUT = "N"
@@ -103,6 +102,42 @@ func SetItemData(item SapApiItemsData) error {
 	itemDataBody.NutritionalSugarValue = strings.Replace(fmt.Sprint(item.NutritionalSugarValue), ".", ",", -1)
 	itemDataBody.NutritionalProteinValue = strings.Replace(fmt.Sprint(item.NutritionalProteinValue), ".", ",", -1)
 	itemDataBody.NutritionalSaltValue = strings.Replace(fmt.Sprint(item.NutritionalSaltValue), ".", ",", -1)
+
+	itemDataBody.ContainmentLevelGluten = item.ContainmentLevelGluten
+	itemDataBody.ContainmentLevelCrustacea = item.ContainmentLevelCrustacea
+	itemDataBody.ContainmentLevelEgg = item.ContainmentLevelEgg
+	itemDataBody.ContainmentLevelFish = item.ContainmentLevelFish
+	itemDataBody.ContainmentLevelPeanut = item.ContainmentLevelPeanut
+	itemDataBody.ContainmentLevelSoy = item.ContainmentLevelSoy
+	itemDataBody.ContainmentLevelMilk = item.ContainmentLevelMilk
+	itemDataBody.ContainmentLevelAlmonds = item.ContainmentLevelAlmonds
+	itemDataBody.ContainmentLevelHazelnut = item.ContainmentLevelHazelnut
+	itemDataBody.ContainmentLevelWalnut = item.ContainmentLevelWalnut
+	itemDataBody.ContainmentLevelCashew = item.ContainmentLevelCashew
+	itemDataBody.ContainmentLevelPecan = item.ContainmentLevelPecan
+	itemDataBody.ContainmentLevelBrazilNut = item.ContainmentLevelBrazilNut
+	itemDataBody.ContainmentLevelPistachio = item.ContainmentLevelPistachio
+	itemDataBody.ContainmentLevelQueenslandNut = item.ContainmentLevelQueenslandNut
+	itemDataBody.ContainmentLevelCelery = item.ContainmentLevelCelery
+
+	itemDataBody.ContainmentLevelMustard = item.ContainmentLevelMustard
+	itemDataBody.ContainmentLevelSulfurDioxideAndSulfites = item.ContainmentLevelSulfurDioxideAndSulfites
+	itemDataBody.ContainmentLevelSesameSeeds = item.ContainmentLevelSesameSeeds
+	itemDataBody.ContainmentLevelLupine = item.ContainmentLevelLupine
+	itemDataBody.ContainmentLevelMollusks = item.ContainmentLevelMollusks
+
+	if itemDataBody.ContainmentLevelGluten == "Free from" {
+		itemDataBody.GlutenFree = "Y"
+	}
+	if itemDataBody.ContainmentLevelMilk == "Free from" {
+		itemDataBody.LactoseFree = "Y"
+		itemDataBody.Vegan = "Y"
+	}
+
+	itemDataBody.Vegetarian = "Y"
+	itemDataBody.CowFree = "Y"
+	itemDataBody.PigFree = "Y"
+	itemDataBody.GMOFree = "Y"
 
 	client, err := GetSapApiAuthClient()
 	if err != nil {

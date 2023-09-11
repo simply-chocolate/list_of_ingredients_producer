@@ -53,9 +53,9 @@ type SapApiItemsData struct {
 	// Claims
 	GlutenFree  string `json:"U_BOYX_Gluten1"`
 	LactoseFree string `json:"U_BOYX_Lactose"`
-	Vegetarian  string `json:"U_BOYX_Vegetar"`
-	Vegan       string `json:"U_BOYX_Vegan"`
-	CowFree     string `json:"U_BOYX_Okse"`
+	Vegetarian  string `json:"U_BOXY_Vegetar"`
+	Vegan       string `json:"U_BOXY_Vegan"`
+	CowFree     string `json:"U_BOYX_Oske"`
 	PigFree     string `json:"U_BOYX_gris"`
 	GMOFree     string `json:"U_BOYX_GMO"`
 

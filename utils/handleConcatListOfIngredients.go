@@ -27,6 +27,12 @@ func HandleConcatAllListOfIngredients(listOfIngredients []RawMaterial, salesItem
 	salesItem.NutritionalProteinValue = nutritionalValues["Protein"]
 	salesItem.NutritionalSaltValue = nutritionalValues["Salt"]
 
+	// Handle contaminations and allergens
+	salesItem, err = handleContaminations(listOfIngredients, RawMaterials, salesItem)
+	if err != nil {
+		return sap_api_wrapper.SapApiItemsData{}, err
+	}
+
 	listOfIngredientsScandinavian, err := HandleConcatListOfIngredients(listOfIngredients, totalQuantityForItem, RawMaterials, "DA_SE_NO", salesItem)
 	if err != nil {
 		return sap_api_wrapper.SapApiItemsData{}, err
@@ -91,7 +97,12 @@ func HandleConcatAllListOfIngredients(listOfIngredients []RawMaterial, salesItem
 }
 
 // Takes a list of ingredients and returns a list of ingredients with the same ingredients concatenated
-func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuantity float64, allRawMaterialsMap map[string]map[string]string, languageCode string, salesItem sap_api_wrapper.SapApiItemsData) (string, error) {
+func HandleConcatListOfIngredients(
+	ingredientsOnProduct []RawMaterial,
+	totalQuantity float64,
+	allRawMaterialsMap map[string]map[string]string,
+	languageCode string,
+	salesItem sap_api_wrapper.SapApiItemsData) (string, error) {
 	// How does glucose on 0021030133 change position?
 	// -> It's because the amount of glucose and white chocolate is equal.
 	// -> If two ingredients have the same amount, the should be sorted alphabetically.
@@ -146,12 +157,39 @@ func HandleConcatListOfIngredients(ingredientsOnProduct []RawMaterial, totalQuan
 	cocoaDryMatterString := getCocoaDryMatterString(ingredientsOnProduct, allRawMaterialsMap, languageCode)
 	listOfIngredients += cocoaDryMatterString
 
-	containmentMap = FindAllAllergenContaminationsSalesItem(containmentMap, salesItem)
+	containmentMap, _ = FindAllAllergenContaminationsSalesItem(containmentMap, salesItem)
 
 	containmentString := createStringOfTraceContamination(containmentMap, languageCode)
 	listOfIngredients += containmentString
 
 	return listOfIngredients, nil
+}
+
+func handleContaminations(
+	ingredientsOnProduct []RawMaterial,
+	allRawMaterialsMap map[string]map[string]string,
+	salesItem sap_api_wrapper.SapApiItemsData) (sap_api_wrapper.SapApiItemsData, error) {
+
+	containmentMap := make(map[string]string)
+	hasError := false
+
+	for _, ingredient := range ingredientsOnProduct {
+
+		ingredientFromMap, exists := allRawMaterialsMap[ingredient.ItemCode]
+		if !exists {
+			teams_notifier.SendRawMaterialNotFoundErrorToTeams(salesItem.ItemCode, ingredient.ItemCode)
+			hasError = true
+		}
+
+		containmentMap = FindAllAllergenContaminations(containmentMap, ingredientFromMap)
+	}
+	if hasError {
+		return sap_api_wrapper.SapApiItemsData{}, errors.New("error: there was an error in the listOfIngredients")
+	}
+
+	_, salesItem = FindAllAllergenContaminationsSalesItem(containmentMap, salesItem)
+
+	return salesItem, nil
 }
 
 func getStartOfIngredientList(languageCode string) string {

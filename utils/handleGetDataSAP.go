@@ -62,6 +62,11 @@ func GetRawMaterialsItemDataFromSap() (map[string]map[string]string, error) {
 		rawMaterialItemData["Pistachio"] = item.ContainmentLevelPistachio
 		rawMaterialItemData["QueenslandNut"] = item.ContainmentLevelQueenslandNut
 		rawMaterialItemData["Celery"] = item.ContainmentLevelCelery
+		rawMaterialItemData["Mustard"] = item.ContainmentLevelMustard
+		rawMaterialItemData["SulfurDioxideAndSulfites"] = item.ContainmentLevelSulfurDioxideAndSulfites
+		rawMaterialItemData["SesameSeeds"] = item.ContainmentLevelSesameSeeds
+		rawMaterialItemData["Lupine"] = item.ContainmentLevelLupine
+		rawMaterialItemData["Mollusks"] = item.ContainmentLevelMollusks
 
 		// Nutritional information
 		rawMaterialItemData["EnergyKJ"] = item.EnergyInkJ

@@ -24,13 +24,19 @@ func FindAllAllergenContaminations(containMentMap map[string]string, RawMaterial
 	containMentMap["Pistachio"] = checkIfContainmentIsGreater(containMentMap["Pistachio"], RawMaterialInfo["Pistachio"])
 	containMentMap["QueenslandNut"] = checkIfContainmentIsGreater(containMentMap["QueenslandNut"], RawMaterialInfo["QueenslandNut"])
 	containMentMap["Celery"] = checkIfContainmentIsGreater(containMentMap["Celery"], RawMaterialInfo["Celery"])
+	containMentMap["Mustard"] = checkIfContainmentIsGreater(containMentMap["Mustard"], RawMaterialInfo["Mustard"])
+	containMentMap["SulfurDioxideAndSulfites"] = checkIfContainmentIsGreater(containMentMap["SulfurDioxideAndSulfites"], RawMaterialInfo["SulfurDioxideAndSulfites"])
+	containMentMap["SesameSeeds"] = checkIfContainmentIsGreater(containMentMap["SesameSeeds"], RawMaterialInfo["SesameSeeds"])
+	containMentMap["Lupine"] = checkIfContainmentIsGreater(containMentMap["Lupine"], RawMaterialInfo["Lupine"])
+	containMentMap["Mollusks"] = checkIfContainmentIsGreater(containMentMap["Mollusks"], RawMaterialInfo["Mollusks"])
 
 	return containMentMap
 }
 
 // Takes a containmentMap and the Sales Item containments and adjusts the containment map if the Sales Item has any allergens with greater contamination
 // returns the adjusted containment map
-func FindAllAllergenContaminationsSalesItem(containMentMap map[string]string, salesItem sap_api_wrapper.SapApiItemsData) map[string]string {
+func FindAllAllergenContaminationsSalesItem(containMentMap map[string]string, salesItem sap_api_wrapper.SapApiItemsData) (map[string]string, sap_api_wrapper.SapApiItemsData) {
+
 	containMentMap["Gluten"] = checkIfContainmentIsGreater(containMentMap["Gluten"], salesItem.ContainmentLevelGluten)
 	containMentMap["Crustacea"] = checkIfContainmentIsGreater(containMentMap["Crustacea"], salesItem.ContainmentLevelCrustacea)
 	containMentMap["Egg"] = checkIfContainmentIsGreater(containMentMap["Egg"], salesItem.ContainmentLevelEgg)
@@ -47,8 +53,37 @@ func FindAllAllergenContaminationsSalesItem(containMentMap map[string]string, sa
 	containMentMap["Pistachio"] = checkIfContainmentIsGreater(containMentMap["Pistachio"], salesItem.ContainmentLevelPistachio)
 	containMentMap["QueenslandNut"] = checkIfContainmentIsGreater(containMentMap["QueenslandNut"], salesItem.ContainmentLevelQueenslandNut)
 	containMentMap["Celery"] = checkIfContainmentIsGreater(containMentMap["Celery"], salesItem.ContainmentLevelCelery)
+	containMentMap["Mustard"] = checkIfContainmentIsGreater(containMentMap["Mustard"], salesItem.ContainmentLevelMustard)
+	containMentMap["SulfurDioxideAndSulfites"] = checkIfContainmentIsGreater(containMentMap["SulfurDioxideAndSulfites"], salesItem.ContainmentLevelSulfurDioxideAndSulfites)
+	containMentMap["SesameSeeds"] = checkIfContainmentIsGreater(containMentMap["SesameSeeds"], salesItem.ContainmentLevelSesameSeeds)
+	containMentMap["Lupine"] = checkIfContainmentIsGreater(containMentMap["Lupine"], salesItem.ContainmentLevelLupine)
+	containMentMap["Mollusks"] = checkIfContainmentIsGreater(containMentMap["Mollusks"], salesItem.ContainmentLevelMollusks)
 
-	return containMentMap
+	// TODO: Do so logic to check for egg, milk and peanut, as all items should have these?
+
+	salesItem.ContainmentLevelGluten = containMentMap["Gluten"]
+	salesItem.ContainmentLevelCrustacea = containMentMap["Crustacea"]
+	salesItem.ContainmentLevelEgg = containMentMap["Egg"]
+	salesItem.ContainmentLevelFish = containMentMap["Fish"]
+	salesItem.ContainmentLevelPeanut = containMentMap["Peanut"]
+	salesItem.ContainmentLevelSoy = containMentMap["Soy"]
+	salesItem.ContainmentLevelMilk = containMentMap["Milk"]
+	salesItem.ContainmentLevelAlmonds = containMentMap["Almonds"]
+	salesItem.ContainmentLevelHazelnut = containMentMap["Hazelnut"]
+	salesItem.ContainmentLevelWalnut = containMentMap["Walnut"]
+	salesItem.ContainmentLevelCashew = containMentMap["Cashew"]
+	salesItem.ContainmentLevelPecan = containMentMap["Pecan"]
+	salesItem.ContainmentLevelBrazilNut = containMentMap["BrazilNut"]
+	salesItem.ContainmentLevelPistachio = containMentMap["Pistachio"]
+	salesItem.ContainmentLevelQueenslandNut = containMentMap["QueenslandNut"]
+	salesItem.ContainmentLevelCelery = containMentMap["Celery"]
+	salesItem.ContainmentLevelMustard = containMentMap["Mustard"]
+	salesItem.ContainmentLevelSulfurDioxideAndSulfites = containMentMap["SulfurDioxideAndSulfites"]
+	salesItem.ContainmentLevelSesameSeeds = containMentMap["SesameSeeds"]
+	salesItem.ContainmentLevelLupine = containMentMap["Lupine"]
+	salesItem.ContainmentLevelMollusks = containMentMap["Mollusks"]
+
+	return containMentMap, salesItem
 }
 
 // Checks which contamination level is greater between to levels of contamination
