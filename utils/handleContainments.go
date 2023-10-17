@@ -36,7 +36,6 @@ func FindAllAllergenContaminations(containMentMap map[string]string, RawMaterial
 // Takes a containmentMap and the Sales Item containments and adjusts the containment map if the Sales Item has any allergens with greater contamination
 // returns the adjusted containment map
 func FindAllAllergenContaminationsSalesItem(containMentMap map[string]string, salesItem sap_api_wrapper.SapApiItemsData) (map[string]string, sap_api_wrapper.SapApiItemsData) {
-
 	containMentMap["Gluten"] = checkIfContainmentIsGreater(containMentMap["Gluten"], salesItem.ContainmentLevelGluten)
 	containMentMap["Crustacea"] = checkIfContainmentIsGreater(containMentMap["Crustacea"], salesItem.ContainmentLevelCrustacea)
 	containMentMap["Egg"] = checkIfContainmentIsGreater(containMentMap["Egg"], salesItem.ContainmentLevelEgg)

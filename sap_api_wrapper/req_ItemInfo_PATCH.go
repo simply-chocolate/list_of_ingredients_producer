@@ -128,10 +128,16 @@ func SetItemData(item SapApiItemsData) error {
 
 	if itemDataBody.ContainmentLevelGluten == "Free from" {
 		itemDataBody.GlutenFree = "Y"
+	} else {
+		itemDataBody.GlutenFree = "N"
 	}
+
 	if itemDataBody.ContainmentLevelMilk == "Free from" {
 		itemDataBody.LactoseFree = "Y"
 		itemDataBody.Vegan = "Y"
+	} else {
+		itemDataBody.LactoseFree = "N"
+		itemDataBody.Vegan = "N"
 	}
 
 	itemDataBody.Vegetarian = "Y"
