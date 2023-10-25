@@ -155,7 +155,7 @@ func getAllergenMap() map[string]map[string]string {
 	allergenMap := map[string]map[string]string{
 		"Gluten":    {"DA_SE_NO": "gluten", "DA": "gluten", "FI": "gluteeni", "EN": "gluten", "DE": "Gluten", "NL": "gluten", "FR": "gluten", "PT": "glúten", "IT": "glutine", "ES": "gluten"},
 		"Crustacea": {"DA_SE_NO": "krebsdyr/skaldjur/krepsdyr", "DA": "krebsdyr", "FI": "äyriäiset", "EN": "crustaceans", "DE": "Krebstiere", "NL": "schaaldieren", "FR": "crustacés", "PT": "crustáceos", "IT": "crostacei", "ES": "crustáceos"},
-		"Egg":       {"DA_SE_NO": "æg", "DA": "æg", "FI": "muna", "EN": "egg", "DE": "Ei", "NL": "ei", "FR": "oeuf", "PT": "ovo", "IT": "uovo", "ES": "huevo"},
+		"Egg":       {"DA_SE_NO": "æg/ägg", "DA": "æg", "FI": "muna", "EN": "egg", "DE": "Ei", "NL": "ei", "FR": "oeuf", "PT": "ovo", "IT": "uovo", "ES": "huevo"},
 		"Fish":      {"DA_SE_NO": "fisk", "DA": "fisk", "FI": "kala", "EN": "fish", "DE": "Fisch", "NL": "vis", "FR": "poisson", "PT": "peixe", "IT": "pesce", "ES": "pescado"},
 		"Peanut":    {"DA_SE_NO": "peanuts/jordnötter/peanøtt", "DA": "peanuts", "FI": "maapähkinä", "EN": "peanuts", "DE": "Erdnüsse", "NL": "pinda", "FR": "arachide", "PT": "amendoim", "IT": "arachidi", "ES": "cacahuete"},
 		"Soy":       {"DA_SE_NO": "soja", "DA": "soja", "FI": "soija", "EN": "soy", "DE": "soja", "NL": "soja", "FR": "soja", "PT": "soja", "IT": "soia", "ES": "soja"},
