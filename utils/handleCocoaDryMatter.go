@@ -61,7 +61,7 @@ func getCocoaDryMatterString(materialsOnProduct []RawMaterial, allRawMaterials m
 	}
 	milkChocolateCocoaDryMatterMap := map[string]string{
 		"DA_SE_NO": "Mælke-/mjölk-chokolade: Mindst 35% kakaotørstof. ",
-		"DA":       "Mælke-/mjölk-chokolade: Mindst 35% kakaotørstof. ",
+		"DA":       "Mælkechokolade: Mindst 35% kakaotørstof. ",
 		"EN":       "Min. 35% dry cocoa solids in the milk chocolate. ",
 		"FI":       "Maitosuklaan kaakaokuiva-aineen pitoisuus vähintään 35%. ",
 		"DE":       "Mindestens 35% Kakaotrockenmasse in Milchschokolade. ",
